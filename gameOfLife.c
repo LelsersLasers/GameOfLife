@@ -4,10 +4,10 @@
 #include <stdio.h>  
 
 
-#define width 20 // 20
-#define height 12 // 12
+#define width 45 // 20
+#define height 28 // 12
 #define aliveChanceOnSpawn 20
-#define delay 50
+#define delay 1
 
 
 struct Cell {
