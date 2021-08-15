@@ -1,6 +1,6 @@
 # Game of Life (John Conway)
 
-My attempt to write Game of Life in Python, C, C++, Java
+My attempt to write Game of Life in Python, C, C++, Java, and Javascript
 
 
 Cell Rules:
@@ -20,6 +20,9 @@ Game board is 45x28, the '.'s are alive cells
 
 There is no way to exit the game outside of control+c
 
+
 I THINK the libaries for C/C++ work on Windows/Mac/Linux all the same
 
 Also I THINK the java should be pre-complied (just 'java GameOfLife')
+
+The Javascript should be run with 'node gameOfLife.js'
