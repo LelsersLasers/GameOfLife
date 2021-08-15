@@ -17,10 +17,7 @@ public:
     int neighbors;
   
     Cell() {
-        int r = rand() % 100;
-        if (r < aliveChanceOnSpawn) {
-            this->alive = true;
-        }
+        this->alive = (rand() % 100 < aliveChanceOnSpawn) ? true:false; 
         this->shouldBeAlive = this->alive;
     }
 
@@ -118,7 +115,7 @@ int main() {
     while (true) {
         draw(cells);
         updateNeighbors(cells);
-        //_sleep(delay);
+        _sleep(delay);
     }
 
 }

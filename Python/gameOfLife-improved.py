@@ -13,12 +13,7 @@ class Cell():
 
     def __init__(self):
         self.neighbors = -1
-
-        self.alive = False
-        chanceValue = random.randint(1, 100)
-        if chanceValue <= aliveChanceOnSpawn:
-            self.alive = True
-
+        self.alive = True if random.randint(1, 100) <= aliveChanceOnSpawn else False
         self.shouldBeAlive = self.alive
 
     def drawCell(self):

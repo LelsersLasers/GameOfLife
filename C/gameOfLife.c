@@ -100,11 +100,7 @@ int main() {
 
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            int alive = 0;
-            int r = rand() % 100;
-            if (r < aliveChanceOnSpawn) {
-                alive = 1;
-            }
+            int alive = (rand() % 100 < aliveChanceOnSpawn) ? 1:0; 
             struct Cell tempCell = {alive, alive, -1};
             cells[i][j] = tempCell;
         }
