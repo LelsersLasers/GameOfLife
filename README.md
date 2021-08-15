@@ -21,4 +21,5 @@ Game board is 45x28, the '.'s are alive cells
 There is no way to exit the game outside of control+c
 
 I THINK the libaries for C/C++ work on Windows/Mac/Linux all the same
+
 Also I THINK the java should be pre-complied (just 'java GameOfLife')
