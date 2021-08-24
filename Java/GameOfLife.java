@@ -4,7 +4,7 @@ public class GameOfLife {
 
     public static void main(String[] args) {
         int width = 45; // 20
-        int height = 28; // 12
+        int height = 27; // 12
         int aliveChanceOnSpawn = 20;
         int delay = 50;
 

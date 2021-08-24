@@ -4,7 +4,7 @@ import os
 
 
 width = 45 # 20
-height = 28 # 12
+height = 27 # 12
 aliveChanceOnSpawn = 20
 delay = 0.05
 
@@ -38,23 +38,23 @@ class CellHolder(): # this all could gave been in main, not a class with 1 funct
         for xPos in range(len(self.cells)):
             for yPos in range(len(self.cells[xPos])):
                 self.cells[xPos][yPos].neighbors = 0
-                
-                if xPos - 1 > 0 and yPos - 1 > 0 and self.cells[xPos - 1][yPos - 1].alive:
-                    self.cells[xPos][yPos].neighbors = self.cells[xPos][yPos].neighbors + 1
-                if xPos - 1 > 0 and self.cells[xPos - 1][yPos].alive:
-                    self.cells[xPos][yPos].neighbors = self.cells[xPos][yPos].neighbors + 1
-                if xPos - 1 > 0 and yPos + 1 < height and self.cells[xPos- 1][yPos + 1].alive:
-                    self.cells[xPos][yPos].neighbors = self.cells[xPos][yPos].neighbors + 1
-                if yPos - 1 > 0 and self.cells[xPos][yPos - 1].alive:
-                    self.cells[xPos][yPos].neighbors = self.cells[xPos][yPos].neighbors + 1;
-                if yPos + 1 < height and self.cells[xPos][yPos + 1].alive:
-                    self.cells[xPos][yPos].neighbors = self.cells[xPos][yPos].neighbors + 1
-                if xPos + 1 < width and yPos - 1 > 0 and self.cells[xPos+ 1][yPos - 1].alive:
-                    self.cells[xPos][yPos].neighbors = self.cells[xPos][yPos].neighbors + 1
-                if xPos + 1 < width and self.cells[xPos + 1][yPos].alive:
-                    self.cells[xPos][yPos].neighbors = self.cells[xPos][yPos].neighbors + 1
-                if xPos + 1 < width and yPos + 1 < height and self.cells[xPos + 1][yPos + 1].alive:
-                    self.cells[xPos][yPos].neighbors = self.cells[xPos][yPos].neighbors + 1
+                offsets = [
+                    [1, 0],
+                    [1, 1],
+                    [1, -1],
+                    [0, 1],
+                    [0, -1],
+                    [-1, 0],
+                    [-1, 1],
+                    [-1, -1]
+                ]
+
+                for offset in offsets:
+                    try:
+                        if self.cells[xPos + offset[0]][yPos + offset[1]].alive:
+                            self.cells[xPos][yPos].neighbors += 1
+                    except:
+                        continue
 
                 if self.cells[xPos][yPos].neighbors == 3:
                     self.cells[xPos][yPos].shouldBeAlive = True
@@ -66,28 +66,24 @@ class CellHolder(): # this all could gave been in main, not a class with 1 funct
                 cell.alive = cell.shouldBeAlive
 
 
-def draw(ch):
+def draw(cellHolder):
     os.system("cls")
-    for i in range(width + 2):
-        print("#", end='')
-    print("")
+    print("#" * (width + 2))
     for yPos in range(height):
         print("#", end='')
         for xPos in range(width):
-            ch.cells[xPos][yPos].drawCell()
+            cellHolder.cells[xPos][yPos].drawCell()
         print("#")
-    for i in range(width + 2):
-        print("#", end='')
-    print("")      
+    print("#" * (width + 2))     
 
 
 def main():
 
-    ch = CellHolder()
+    cellHolder = CellHolder()
 
     while True:
-        draw(ch)
-        ch.updateNeighbors()
+        draw(cellHolder)
+        cellHolder.updateNeighbors()
         time.sleep(delay)
 
 

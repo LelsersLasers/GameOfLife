@@ -1,5 +1,5 @@
 const width = 45; // 20
-const height = 28; // 12
+const height = 27; // 12
 const aliveChanceOnSpawn = 20;
 const delay = 50;
 

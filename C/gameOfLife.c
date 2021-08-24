@@ -5,7 +5,7 @@
 
 
 #define width 45 // 20
-#define height 28 // 12
+#define height 27 // 12
 #define aliveChanceOnSpawn 20
 #define delay 1
 

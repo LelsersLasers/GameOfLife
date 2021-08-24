@@ -4,7 +4,7 @@ import os
 
 
 width = 45 # 20
-height = 28 # 12
+height = 27 # 12
 aliveChanceOnSpawn = 20
 delay = 0.05
 
@@ -97,8 +97,7 @@ class CellHolder():
 
 def draw(ch):
     os.system("cls")
-    for i in range(width + 2):
-        print("#", end='')
+    print("#" * (width + 2))
     print("")
     for yPos in range(height):
         print("#", end='')
@@ -106,8 +105,7 @@ def draw(ch):
             drawPos = Posistion(xPos, yPos)
             ch.checkDrawCell(drawPos)
         print("#")
-    for i in range(width + 2):
-        print("#", end='')
+    print("#" * (width + 2))
     print("")      
 
 
