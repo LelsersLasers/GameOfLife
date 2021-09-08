@@ -51,8 +51,9 @@ class CellHolder(): # this all could gave been in main, not a class with 1 funct
 
                 for offset in offsets:
                     try:
-                        if self.cells[xPos + offset[0]][yPos + offset[1]].alive:
-                            self.cells[xPos][yPos].neighbors += 1
+                        # if self.cells[xPos + offset[0]][yPos + offset[1]].alive:
+                        #     self.cells[xPos][yPos].neighbors += 1
+                        self.cells[xPos][yPos].neighbors += self.cells[xPos + offset[0]][yPos + offset[1]].alive
                     except:
                         continue
 
