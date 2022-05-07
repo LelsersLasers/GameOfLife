@@ -46,30 +46,20 @@ public class GameOfLife extends Game {
 
 		for (int i = 1; i < cells.length - 1; i++) {
 			for (int j = 1; j < cells[i].length - 1; j++) {
+				int offsets[][] = {
+						{1, 0},
+						{1, 1},
+						{1, -1},
+						{0, 1},
+						{0, -1},
+						{-1, 0},
+						{-1, 1},
+						{-1, -1}
+				};
+
 				int neighbors = 0;
-				if (cells[i - 1][j - 1].getIsAlive()) {
-					neighbors = neighbors + 1;
-				}
-				if (cells[i - 1][j].getIsAlive()) {
-					neighbors = neighbors + 1;
-				}
-				if (cells[i - 1][j + 1].getIsAlive()) {
-					neighbors = neighbors + 1;
-				}
-				if (cells[i][j - 1].getIsAlive()) {
-					neighbors = neighbors + 1;
-				}
-				if (cells[i][j + 1].getIsAlive()) {
-					neighbors = neighbors + 1;
-				}
-				if (cells[i + 1][j - 1].getIsAlive()) {
-					neighbors = neighbors + 1;
-				}
-				if (cells[i + 1][j].getIsAlive()) {
-					neighbors = neighbors + 1;
-				}
-				if (cells[i + 1][j + 1].getIsAlive()) {
-					neighbors = neighbors + 1;
+				for (int offset[] : offsets) {
+					neighbors += cells[i + offset[0]][j + offset[1]].getIsAlive() ? 1 : 0;
 				}
 
 				if (neighbors == 3) {
