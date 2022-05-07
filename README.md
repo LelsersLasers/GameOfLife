@@ -2,7 +2,7 @@
 
 https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
-My attempt to write Game of Life in Python, C, C++, Java, and Javascript
+My attempt to write Game of Life in Python, C, C++, Java, and Javascript (the libgdx is in Java, but a graphical app instead of terminal)
 
 
 Cell Rules:
