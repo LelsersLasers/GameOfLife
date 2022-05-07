@@ -8,8 +8,8 @@ import lelsers.lasers.gameoflife.GameOfLife;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(60);
-		config.setTitle("GameOfLife");
+		config.setForegroundFPS(8);
+		config.setTitle("Game Of Life");
 		new Lwjgl3Application(new GameOfLife(), config);
 	}
 }
