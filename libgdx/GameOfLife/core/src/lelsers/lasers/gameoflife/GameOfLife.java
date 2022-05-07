@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,9 +16,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameOfLife extends Game {
 
-	private final int SIZE = 8;
-	private final int SPACER = 2;
-	private final double spawnChance = 0.3;
+	private final int SIZE = 16;
+	private final int SPACER = 4;
+	private final double spawnChance = 0.2;
 
 	private ShapeRenderer shape;
 	private Cell[][] cells;
@@ -32,6 +33,8 @@ public class GameOfLife extends Game {
 				cells[i][j] = new Cell(spawnChance, SIZE, i * (SIZE + SPACER) + SPACER, j * (SIZE + SPACER) + SPACER);
 			}
 		}
+
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 	}
 
 	@Override
@@ -44,9 +47,9 @@ public class GameOfLife extends Game {
 
 	private void updateAndDrawCells() {
 
-		for (int i = 1; i < cells.length - 1; i++) {
-			for (int j = 1; j < cells[i].length - 1; j++) {
-				int offsets[][] = {
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				int[][] offsets = {
 						{1, 0},
 						{1, 1},
 						{1, -1},
@@ -58,8 +61,11 @@ public class GameOfLife extends Game {
 				};
 
 				int neighbors = 0;
-				for (int offset[] : offsets) {
-					neighbors += cells[i + offset[0]][j + offset[1]].getIsAlive() ? 1 : 0;
+				for (int[] offset : offsets) {
+					try {
+						neighbors += cells[i + offset[0]][j + offset[1]].getIsAlive() ? 1 : 0;
+					}
+					catch (ArrayIndexOutOfBoundsException ignored) {}
 				}
 
 				if (neighbors == 3) {
