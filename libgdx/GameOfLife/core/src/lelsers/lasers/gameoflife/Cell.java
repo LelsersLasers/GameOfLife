@@ -1,6 +1,5 @@
 package lelsers.lasers.gameoflife;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Cell {
@@ -28,7 +27,6 @@ public class Cell {
 
     public void render(ShapeRenderer shape) {
         if (isAlive) {
-            shape.setColor(Color.WHITE);
             shape.rect(x, y, size, size);
         }
     }

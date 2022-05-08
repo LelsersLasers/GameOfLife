@@ -20,6 +20,8 @@ public class GameOfLife extends Game {
 	private final int SPACER = 4;
 	private final double spawnChance = 0.2;
 
+	private boolean pause = false;
+
 	private ShapeRenderer shape;
 	private Cell[][] cells;
 
@@ -35,18 +37,39 @@ public class GameOfLife extends Game {
 		}
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
+		shape.setColor(Color.GOLDENROD);
 	}
 
 	@Override
 	public void render() {
+		handleInputs();
+
+		System.out.println(pause);
+
+		if (!pause) {
+			updateCells();
+		}
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shape.begin(ShapeRenderer.ShapeType.Filled);
-		updateAndDrawCells();
+		drawCells();
 		shape.end();
 	}
 
-	private void updateAndDrawCells() {
+	private void handleInputs() {
+		pause = Gdx.input.isTouched();
+	}
 
+	private void drawCells() {
+		for (Cell[] cell : cells) {
+			for (Cell c : cell) {
+				c.sync();
+				c.render(shape);
+			}
+		}
+	}
+
+	private void updateCells() {
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
 				int[][] offsets = {
@@ -74,13 +97,6 @@ public class GameOfLife extends Game {
 				else if (neighbors < 2 || neighbors > 3) {
 					cells[i][j].setShouldBeAlive(false);
 				}
-			}
-		}
-
-		for (Cell[] cell : cells) {
-			for (Cell c : cell) {
-				c.sync();
-				c.render(shape);
 			}
 		}
 	}
