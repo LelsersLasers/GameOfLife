@@ -3,6 +3,7 @@ package lelsers.lasers.gameoflife;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -30,11 +31,7 @@ public class GameOfLife extends Game {
 		shape = new ShapeRenderer();
 
 		cells = new Cell[Gdx.graphics.getWidth()/(SIZE + SPACER) + 1][Gdx.graphics.getHeight()/(SIZE + SPACER) + 1];
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[i].length; j++) {
-				cells[i][j] = new Cell(spawnChance, SIZE, i * (SIZE + SPACER) + SPACER, j * (SIZE + SPACER) + SPACER);
-			}
-		}
+		randomizeCells();
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		shape.setColor(Color.GOLDENROD);
@@ -43,8 +40,6 @@ public class GameOfLife extends Game {
 	@Override
 	public void render() {
 		handleInputs();
-
-		System.out.println(pause);
 
 		if (!pause) {
 			updateCells();
@@ -56,8 +51,23 @@ public class GameOfLife extends Game {
 		shape.end();
 	}
 
+	private void randomizeCells() {
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
+				cells[i][j] = new Cell(spawnChance, SIZE, i * (SIZE + SPACER) + SPACER, j * (SIZE + SPACER) + SPACER);
+			}
+		}
+	}
+
 	private void handleInputs() {
 		pause = Gdx.input.isTouched();
+
+		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+			randomizeCells();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
+		}
 	}
 
 	private void drawCells() {
