@@ -22,6 +22,7 @@ public class GameOfLife extends Game {
 	private final double spawnChance = 0.2;
 
 	private boolean pause = false;
+	private boolean simpleDraw = true;
 
 	private ShapeRenderer shape;
 	private Cell[][] cells;
@@ -65,6 +66,9 @@ public class GameOfLife extends Game {
 		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
 			randomizeCells();
 		}
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			simpleDraw = !simpleDraw;
+		}
 		if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
@@ -74,7 +78,7 @@ public class GameOfLife extends Game {
 		for (Cell[] cell : cells) {
 			for (Cell c : cell) {
 				c.sync();
-				c.render(shape, true);
+				c.render(shape, simpleDraw);
 			}
 		}
 	}

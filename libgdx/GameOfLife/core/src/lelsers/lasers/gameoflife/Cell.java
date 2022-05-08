@@ -1,10 +1,12 @@
 package lelsers.lasers.gameoflife;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Cell {
     private boolean alive;
     private int x, y, size;
+
     private int neighbors = 0;
 
     Cell(double aliveChanceOnSpawn, int size, int x, int y) {
@@ -31,11 +33,15 @@ public class Cell {
         }
     }
 
-    public void render(ShapeRenderer shape, boolean simple) {
+    public void render(ShapeRenderer shape, boolean simpleDraw) {
+        shape.setColor(Color.BLACK);
         if (alive) {
-            if (simple) {
-                shape.rect(x, y, size, size);
-            }
+            shape.setColor(Color.GOLDENROD);
         }
+        else if (!simpleDraw) {
+            float brightness = (float)neighbors/9 + (float)1/9;
+            shape.setColor(new Color(brightness, brightness, brightness, 1));
+        }
+        shape.rect(x, y, size, size);
     }
 }
