@@ -1,7 +1,7 @@
 # Game Of Life using Java + libgdx
 
-![Normal View](https://github.com/Lord-Lelsers/Applied-Comp-Sci/raw/main/80sGame/NEO%20CROSSER/showcase.PNG)
-![Advanced View](https://github.com/Lord-Lelsers/Applied-Comp-Sci/raw/main/80sGame/NEO%20CROSSER/showcase.PNG)
+![Normal View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/normalView.PNG)
+![Advanced View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/advancedView.PNG)
 
 Controls:
 - Q/ESC: quit
