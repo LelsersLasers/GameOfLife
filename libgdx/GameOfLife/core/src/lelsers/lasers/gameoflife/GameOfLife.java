@@ -30,7 +30,7 @@ public class GameOfLife extends Game {
 	public void create() {
 		shape = new ShapeRenderer();
 
-		cells = new Cell[Gdx.graphics.getWidth()/(SIZE + SPACER) + 1][Gdx.graphics.getHeight()/(SIZE + SPACER) + 1];
+		cells = new Cell[Gdx.graphics.getWidth()/(SIZE + SPACER)][Gdx.graphics.getHeight()/(SIZE + SPACER)];
 		randomizeCells();
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -74,7 +74,7 @@ public class GameOfLife extends Game {
 		for (Cell[] cell : cells) {
 			for (Cell c : cell) {
 				c.sync();
-				c.render(shape);
+				c.render(shape, true);
 			}
 		}
 	}
@@ -96,17 +96,11 @@ public class GameOfLife extends Game {
 				int neighbors = 0;
 				for (int[] offset : offsets) {
 					try {
-						neighbors += cells[i + offset[0]][j + offset[1]].getIsAlive() ? 1 : 0;
+						neighbors += cells[i + offset[0]][j + offset[1]].getAlive() ? 1 : 0;
 					}
 					catch (ArrayIndexOutOfBoundsException ignored) {}
 				}
-
-				if (neighbors == 3) {
-					cells[i][j].setShouldBeAlive(true);
-				}
-				else if (neighbors < 2 || neighbors > 3) {
-					cells[i][j].setShouldBeAlive(false);
-				}
+				cells[i][j].setNeighbors(neighbors);
 			}
 		}
 	}
