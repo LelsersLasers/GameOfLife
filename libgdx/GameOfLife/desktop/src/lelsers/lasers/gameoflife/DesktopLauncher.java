@@ -9,14 +9,14 @@ public class DesktopLauncher {
 
 	private static final int SIZE = 16;
 	private static final int SPACER = 4;
+	private static final int FPS = 8;
 
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(8);
 		config.setResizable(false);
 		config.setWindowedMode(45 * (SIZE + SPACER) + SPACER, 28 * (SIZE + SPACER) + SPACER);
 
 		config.setTitle("Game Of Life");
-		new Lwjgl3Application(new GameOfLife(SIZE, SPACER), config);
+		new Lwjgl3Application(new GameOfLife(SIZE, SPACER, FPS), config);
 	}
 }

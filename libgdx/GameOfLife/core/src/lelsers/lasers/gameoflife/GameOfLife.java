@@ -21,15 +21,19 @@ public class GameOfLife extends Game {
 	private int spacer;
 	private final double spawnChance = 0.2;
 
+	private int fps;
+	private double frame = 1;
+
 	private boolean pause = false;
 	private boolean simpleDraw = true;
 
 	private ShapeRenderer shape;
 	private Cell[][] cells;
 
-	public GameOfLife(int size, int spacer) {
+	public GameOfLife(int size, int spacer, int fps) {
 		this.size = size;
 		this.spacer = spacer;
+		this.fps = fps;
 	}
 
 	@Override
@@ -48,7 +52,13 @@ public class GameOfLife extends Game {
 		handleInputs();
 
 		if (!pause) {
-			updateCells();
+			frame += Gdx.graphics.getDeltaTime();
+			if (frame >= 1.0/fps) {
+				updateCells();
+				while (frame >= 1.0/fps) {
+					frame -= 1.0/fps;
+				}
+			}
 		}
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -73,6 +83,14 @@ public class GameOfLife extends Game {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			simpleDraw = !simpleDraw;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			fps++;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			if (fps > 1) {
+				fps--;
+			}
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();

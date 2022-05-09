@@ -8,3 +8,5 @@ Controls:
 - R: re-randomize the cells
 - SPACE: toggle advanced view (shows neighbor counts as a greyscale)
 - Mouse Down: pause/freeze
+- Up Arrow: increase speed
+- Down Arrow: decrease speed
