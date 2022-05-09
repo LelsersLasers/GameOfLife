@@ -20,8 +20,12 @@ public class Cell {
         return alive;
     }
 
-    public void setNeighbors(int neighbors) {
-        this.neighbors = neighbors;
+    public void clearNeighbors() {
+        neighbors = 0;
+    }
+
+    public void addNeighbor(boolean condition) {
+        neighbors += condition ? 1 : 0;
     }
 
     public void sync() {

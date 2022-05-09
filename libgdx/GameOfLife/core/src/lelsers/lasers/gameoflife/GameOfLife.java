@@ -17,8 +17,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameOfLife extends Game {
 
-	private final int SIZE = 16;
-	private final int SPACER = 4;
+	private int size;
+	private int spacer;
 	private final double spawnChance = 0.2;
 
 	private boolean pause = false;
@@ -27,11 +27,16 @@ public class GameOfLife extends Game {
 	private ShapeRenderer shape;
 	private Cell[][] cells;
 
+	public GameOfLife(int size, int spacer) {
+		this.size = size;
+		this.spacer = spacer;
+	}
+
 	@Override
 	public void create() {
 		shape = new ShapeRenderer();
 
-		cells = new Cell[Gdx.graphics.getWidth()/(SIZE + SPACER)][Gdx.graphics.getHeight()/(SIZE + SPACER)];
+		cells = new Cell[Gdx.graphics.getWidth()/(size + spacer)][Gdx.graphics.getHeight()/(size + spacer)];
 		randomizeCells();
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -55,7 +60,7 @@ public class GameOfLife extends Game {
 	private void randomizeCells() {
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				cells[i][j] = new Cell(spawnChance, SIZE, i * (SIZE + SPACER) + SPACER, j * (SIZE + SPACER) + SPACER);
+				cells[i][j] = new Cell(spawnChance, size, i * (size + spacer) + spacer, j * (size + spacer) + spacer);
 			}
 		}
 	}
@@ -97,14 +102,13 @@ public class GameOfLife extends Game {
 						{-1, -1}
 				};
 
-				int neighbors = 0;
+                cells[i][j].clearNeighbors();
 				for (int[] offset : offsets) {
 					try {
-						neighbors += cells[i + offset[0]][j + offset[1]].getAlive() ? 1 : 0;
+                        cells[i][j].addNeighbor(cells[i + offset[0]][j + offset[1]].getAlive());
 					}
 					catch (ArrayIndexOutOfBoundsException ignored) {}
 				}
-				cells[i][j].setNeighbors(neighbors);
 			}
 		}
 	}
