@@ -3,6 +3,11 @@
 ![Normal View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/normalView.PNG)
 ![Advanced View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/advancedView.PNG)
 
+To run:
+- Run the GameOfLife.jar
+- Make sure icon.png is in the same directory/folder that the jar file is in
+- Run from the folder that the image is in (so you, the jar, and the image are all in the same folder)
+
 Controls:
 - Q/ESC: quit
 - R: re-randomize the cells
