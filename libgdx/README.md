@@ -4,9 +4,9 @@
 ![Advanced View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/advancedView.PNG)
 
 To run:
-- Run the GameOfLife.jar
+- Run the GameOfLife.jar (in Build)
 - Make sure icon.png is in the same directory/folder that the jar file is in
-- Run from the folder that the image is in (so you, the jar, and the image are all in the same folder)
+- Run from the folder that the image is in (so you, the jar, and the image are all in the same folder, likely all in Build)
 
 Controls:
 - Q/ESC: quit
