@@ -46,15 +46,14 @@ public class GameOfLife extends Game {
 
 	@Override
 	public void render() {
+		frame += Gdx.graphics.getDeltaTime();
+
 		handleInputs();
 
-		if (!paused) {
-			frame += Gdx.graphics.getDeltaTime();
-			if (frame >= 1.0/fps) {
-				updateCells();
-				while (frame >= 1.0/fps) {
-					frame -= 1.0/fps;
-				}
+		if (!paused && frame >= 1.0/fps) {
+			updateCells();
+			while (frame >= 1.0/fps) {
+				frame -= 1.0/fps;
 			}
 		}
 
