@@ -16,8 +16,13 @@ public class GameOfLife extends Game {
 	private int fps;
 	private double frame = 1;
 
-	private boolean pause = false;
+	private boolean paused = false;
 	private boolean simpleDraw = true;
+
+	private ToggleKey mouseTK = new ToggleKey();
+	private ToggleKey spaceTK = new ToggleKey();
+	private ToggleKey upTK = new ToggleKey();
+	private ToggleKey downTK = new ToggleKey();
 
 	private ShapeRenderer shape;
 	private Cell[][] cells;
@@ -43,7 +48,7 @@ public class GameOfLife extends Game {
 	public void render() {
 		handleInputs();
 
-		if (!pause) {
+		if (!paused) {
 			frame += Gdx.graphics.getDeltaTime();
 			if (frame >= 1.0/fps) {
 				updateCells();
@@ -65,25 +70,30 @@ public class GameOfLife extends Game {
 				cells[i][j] = new Cell(spawnChance, size, i * (size + spacer) + spacer, j * (size + spacer) + spacer);
 			}
 		}
+		updateCells();
 	}
 
 	private void handleInputs() {
-		pause = Gdx.input.isTouched();
-
 		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
 			randomizeCells();
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+
+		if (mouseTK.down(Gdx.input.isTouched())) {
+			paused = !paused;
+		}
+		if (spaceTK.down(Gdx.input.isKeyPressed(Input.Keys.SPACE))) {
 			simpleDraw = !simpleDraw;
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+
+		if (upTK.down(Gdx.input.isKeyPressed(Input.Keys.UP))) {
 			fps++;
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+		if (downTK.down(Gdx.input.isKeyPressed(Input.Keys.DOWN))) {
 			if (fps > 1) {
 				fps--;
 			}
 		}
+
 		if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
