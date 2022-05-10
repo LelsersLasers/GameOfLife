@@ -13,6 +13,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setResizable(false);
+		config.setWindowIcon("icon.png");
 		config.setWindowedMode(45 * (SIZE + SPACER) + SPACER, 28 * (SIZE + SPACER) + SPACER);
 
 		config.setTitle("Game Of Life");
