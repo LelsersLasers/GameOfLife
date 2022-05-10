@@ -8,9 +8,7 @@ public class ToggleKey {
             wasDown = true;
             return true;
         }
-        else if (!state) {
-            wasDown = false;
-        }
+        else if (!state) wasDown = false;
         return false;
     }
 }

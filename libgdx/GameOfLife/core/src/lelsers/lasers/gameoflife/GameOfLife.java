@@ -47,14 +47,11 @@ public class GameOfLife extends Game {
 	@Override
 	public void render() {
 		frame += Gdx.graphics.getDeltaTime();
-
 		handleInputs();
 
 		if (!paused && frame >= 1.0/fps) {
 			updateCells();
-			while (frame >= 1.0/fps) {
-				frame -= 1.0/fps;
-			}
+			while (frame >= 1.0/fps) frame -= 1.0/fps;
 		}
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -73,44 +70,31 @@ public class GameOfLife extends Game {
 	}
 
 	private void handleInputs() {
-		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
-			randomizeCells();
-		}
-
-		if (mouseTK.down(Gdx.input.isTouched())) {
-			paused = !paused;
-		}
+		if (Gdx.input.isKeyPressed(Input.Keys.R)) randomizeCells();
+		if (mouseTK.down(Gdx.input.isTouched())) paused = !paused;
 		if (spaceTK.down(Gdx.input.isKeyPressed(Input.Keys.SPACE))) {
 			drawMode++;
 			drawMode %= 3;
 		}
-
-		if (upTK.down(Gdx.input.isKeyPressed(Input.Keys.UP))) {
-			fps++;
-		}
+		if (upTK.down(Gdx.input.isKeyPressed(Input.Keys.UP))) fps++;
 		if (downTK.down(Gdx.input.isKeyPressed(Input.Keys.DOWN))) {
-			if (fps > 1) {
-				fps--;
-			}
+			if (fps > 1) fps--;
 		}
-
-		if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-			Gdx.app.exit();
-		}
+		if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 	}
 
 	private void syncCells() {
-		for (Cell[] cell : cells) {
-			for (Cell c : cell) {
-				c.sync();
+		for (Cell[] cellRow : cells) {
+			for (Cell cell : cellRow) {
+				cell.sync();
 			}
 		}
 	}
 
 	private void drawCells() {
-		for (Cell[] cell : cells) {
-			for (Cell c : cell) {
-				c.render(shape, drawMode);
+		for (Cell[] cellRow : cells) {
+			for (Cell cell : cellRow) {
+				cell.render(shape, drawMode);
 			}
 		}
 	}
