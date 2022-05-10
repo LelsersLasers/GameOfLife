@@ -11,7 +11,10 @@ To run:
 Controls:
 - Q/ESC: quit
 - R: re-randomize the cells
-- SPACE: toggle advanced view (shows neighbor counts as a greyscale)
+- SPACE: switch between view modes
+	- normal view: shows alive cells
+	- change view: shows newly alive, newly dead, and still alive cells
+	- neighbor view: shows alive cells and neighbor counts as a greyscale
 - Mouse Down: toggle pause/freeze
 - Up Arrow: increase updates per second by 1
 - Down Arrow: decrease updates per second by 1

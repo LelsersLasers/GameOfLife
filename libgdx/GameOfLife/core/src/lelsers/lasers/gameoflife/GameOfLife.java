@@ -17,7 +17,7 @@ public class GameOfLife extends Game {
 	private double frame = 1;
 
 	private boolean paused = false;
-	private boolean simpleDraw = true;
+	private int drawMode = 0; // 0 = normal, 1 = neighbors, 2 = change
 
 	private ToggleKey mouseTK = new ToggleKey();
 	private ToggleKey spaceTK = new ToggleKey();
@@ -81,7 +81,8 @@ public class GameOfLife extends Game {
 			paused = !paused;
 		}
 		if (spaceTK.down(Gdx.input.isKeyPressed(Input.Keys.SPACE))) {
-			simpleDraw = !simpleDraw;
+			drawMode++;
+			drawMode %= 3;
 		}
 
 		if (upTK.down(Gdx.input.isKeyPressed(Input.Keys.UP))) {
@@ -98,11 +99,18 @@ public class GameOfLife extends Game {
 		}
 	}
 
-	private void drawCells() {
+	private void syncCells() {
 		for (Cell[] cell : cells) {
 			for (Cell c : cell) {
 				c.sync();
-				c.render(shape, simpleDraw);
+			}
+		}
+	}
+
+	private void drawCells() {
+		for (Cell[] cell : cells) {
+			for (Cell c : cell) {
+				c.render(shape, drawMode);
 			}
 		}
 	}
@@ -130,5 +138,6 @@ public class GameOfLife extends Game {
 				}
 			}
 		}
+		syncCells();
 	}
 }
