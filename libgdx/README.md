@@ -1,7 +1,8 @@
 # Game Of Life using Java + libgdx
 
 ![Normal View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/normalView.PNG)
-![Advanced View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/advancedView.PNG)
+![Difference View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/differenceVieww)
+!Neighbors View](https://github.com/LelsersLasers/GameOfLife/raw/main/libgdx/Showcase/advancedView.PNG)
 
 To run:
 - Run the GameOfLife.jar (in Build)
