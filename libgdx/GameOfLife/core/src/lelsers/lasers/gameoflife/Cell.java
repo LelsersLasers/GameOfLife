@@ -1,6 +1,8 @@
 package lelsers.lasers.gameoflife;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Cell {
@@ -46,5 +48,11 @@ public class Cell {
             }
         }
         shape.rect(x, y, size, size);
+    }
+
+    public void writeText(SpriteBatch batch, BitmapFont font) {
+        if (neighbors > 0) {
+            font.draw(batch, Integer.toString(neighbors), (int)(x + size * 1.0/4), (int)(y + size * 3.0/4));
+        }
     }
 }

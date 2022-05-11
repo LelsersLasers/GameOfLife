@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class GameOfLife extends Game {
@@ -25,6 +27,9 @@ public class GameOfLife extends Game {
 	private ToggleKey downTK = new ToggleKey();
 
 	private ShapeRenderer shape;
+	private SpriteBatch batch;
+	private BitmapFont font;
+
 	private Cell[][] cells;
 
 	public GameOfLife(int size, int spacer, int fps) {
@@ -36,12 +41,13 @@ public class GameOfLife extends Game {
 	@Override
 	public void create() {
 		shape = new ShapeRenderer();
+		batch = new SpriteBatch();
+		font = new BitmapFont();
 
 		cells = new Cell[Gdx.graphics.getWidth()/(size + spacer)][Gdx.graphics.getHeight()/(size + spacer)];
 		randomizeCells();
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
-		shape.setColor(Color.GOLDENROD);
 	}
 
 	@Override
@@ -54,10 +60,7 @@ public class GameOfLife extends Game {
 			while (frame >= 1.0/fps) frame -= 1.0/fps;
 		}
 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shape.begin(ShapeRenderer.ShapeType.Filled);
 		drawCells();
-		shape.end();
 	}
 
 	private void randomizeCells() {
@@ -72,10 +75,7 @@ public class GameOfLife extends Game {
 	private void handleInputs() {
 		if (Gdx.input.isKeyPressed(Input.Keys.R)) randomizeCells();
 		if (mouseTK.down(Gdx.input.isTouched())) paused = !paused;
-		if (spaceTK.down(Gdx.input.isKeyPressed(Input.Keys.SPACE))) {
-			drawMode++;
-			drawMode %= 3;
-		}
+		if (spaceTK.down(Gdx.input.isKeyPressed(Input.Keys.SPACE))) drawMode = ++drawMode % 4;
 		if (upTK.down(Gdx.input.isKeyPressed(Input.Keys.UP))) fps++;
 		if (downTK.down(Gdx.input.isKeyPressed(Input.Keys.DOWN))) {
 			if (fps > 1) fps--;
@@ -83,19 +83,24 @@ public class GameOfLife extends Game {
 		if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 	}
 
-	private void syncCells() {
-		for (Cell[] cellRow : cells) {
-			for (Cell cell : cellRow) {
-				cell.sync();
-			}
-		}
-	}
-
 	private void drawCells() {
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		shape.begin(ShapeRenderer.ShapeType.Filled);
 		for (Cell[] cellRow : cells) {
 			for (Cell cell : cellRow) {
 				cell.render(shape, drawMode);
 			}
+		}
+		shape.end();
+
+		if (drawMode == 3) {
+			batch.begin();
+			for (Cell[] cellRow : cells) {
+				for (Cell cell : cellRow) {
+					cell.writeText(batch, font);
+				}
+			}
+			batch.end();
 		}
 	}
 
@@ -122,6 +127,10 @@ public class GameOfLife extends Game {
 				}
 			}
 		}
-		syncCells();
+		for (Cell[] cellRow : cells) {
+			for (Cell cell : cellRow) {
+				cell.sync();
+			}
+		}
 	}
 }
