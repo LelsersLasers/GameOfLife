@@ -4,114 +4,78 @@
 
 using namespace std;
 
-#define width 45 // 20
-#define height 27 // 12
-#define aliveChanceOnSpawn 20
+#define width 45
+#define height 28
+#define aliveChanceOnSpawn .2
 #define delay 50
 
 
 class Cell {
-public:
-    bool alive = false;
-    bool shouldBeAlive;
+private:
+    bool alive;
     int neighbors;
-  
+public:
     Cell() {
-        this->alive = (rand() % 100 < aliveChanceOnSpawn) ? true:false; 
-        this->shouldBeAlive = this->alive;
+        alive = (double)rand()/(double)RAND_MAX < aliveChanceOnSpawn; 
+    }
+
+    bool getAlive() { return alive; }
+    void clearNeighbors() { neighbors = 0; }
+    void addNeighbor(bool condition) { neighbors += condition ? 1 : 0; }
+
+    void sync() {
+        if (neighbors == 3) alive = true;
+        else if (neighbors < 2 || neighbors > 3) alive = false;
     }
 
     void drawCell() {
-        if (this->alive) {
-            cout << ".";
-            // cout << this->neighbors;
-        }
-        else {
-            cout << " ";
-        }
+        if (alive) cout << ".";
+        else cout << " ";
     }
 };
 
 
 void draw(Cell cells[width][height]) {
-
     system("CLS");
-
-    for (int i = 0; i < width + 2; i++) {
-        cout << "#";
-    }
+    for (int i = 0; i < width + 2; i++) cout << "#";
     printf("\n");
-
     for (int yPos = 0; yPos < height; yPos++) {
         cout << "#";
-        for (int xPos = 0; xPos < width; xPos++) {
-            cells[xPos][yPos].drawCell();
-        }
+        for (int xPos = 0; xPos < width; xPos++) cells[xPos][yPos].drawCell();
         cout << "#" << endl;
     }
-    for (int i = 0; i < width + 2; i++) {
-        cout << "#";;
-    }
+    for (int i = 0; i < width + 2; i++) cout << "#";;
     printf("");
 }
-
 
 void updateNeighbors(Cell cells[width][height]) {
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            int neighbors = 0;
-            
-            if (i - 1 > 0 && j - 1 > 0 && cells[i - 1][j - 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i - 1 > 0 && cells[i - 1][j].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i - 1 > 0 && j + 1 < height && cells[i - 1][j + 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (j - 1 > 0 && cells[i][j - 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (j + 1 < height && cells[i][j + 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i + 1 < width && j - 1 > 0 && cells[i + 1][j - 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i + 1 < width && cells[i + 1][j].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i + 1 < width && j + 1 < height && cells[i + 1][j + 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            cells[i][j].neighbors = neighbors;
-            if (neighbors == 3) {
-                cells[i][j].shouldBeAlive = 1;
-            }
-            else if (neighbors < 2 || neighbors > 3) {
-                cells[i][j].shouldBeAlive = 0;
+            cells[i][j].clearNeighbors();
+            int offsets[8][2] = {{1, 0}, {1, 1}, {1, -1}, {0, 1}, {0, -1}, {-1, 0}, {-1, 1}, {-1, -1}};
+            for (int k = 0; k < 8; k++) {
+                if (i + offsets[k][0] >= 0 && i + offsets[k][0] < width && j + offsets[k][1] >= 0 && j + offsets[k][1] < height) {
+                    cells[i][j].addNeighbor(cells[i + offsets[k][0]][j + offsets[k][1]].getAlive());
+                }
             }
         }
     }
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            cells[i][j].alive = cells[i][j].shouldBeAlive;
+            cells[i][j].sync();
         }
     }
 }
 
 
 int main() {
-
+    srand(time(NULL));
     Cell cells[width][height];
-
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             cells[i][j] = Cell();
         }
     }
-
     while (true) {
         draw(cells);
         updateNeighbors(cells);

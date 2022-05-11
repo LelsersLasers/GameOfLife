@@ -3,7 +3,6 @@
 #include <time.h>
 #include <stdio.h>  
 
-
 #define width 45
 #define height 28
 #define aliveChanceOnSpawn .2
@@ -15,34 +14,21 @@ struct Cell {
     int neighbors;
 };
 
-
 void draw(struct Cell cells[width][height]) {
-
     system("CLS");
-
-    for (int i = 0; i < width + 2; i++) {
-        printf("#");
-    }
+    for (int i = 0; i < width + 2; i++) printf("#");
     printf("\n");
-
     for (int yPos = 0; yPos < height; yPos++) {
         printf("#");
         for (int xPos = 0; xPos < width; xPos++) {
-            if (cells[xPos][yPos].alive) {
-                printf(".");
-            }
-            else {
-                printf(" ");
-            }
+            if (cells[xPos][yPos].alive) printf(".");
+            else printf(" ");
         }
         printf("#\n");
     }
-    for (int i = 0; i < width + 2; i++) {
-        printf("#");
-    }
+    for (int i = 0; i < width + 2; i++) printf("#");
     printf("");
 }
-
 
 void updateNeighbors(struct Cell cells[width][height]) {
     for (int i = 0; i < width; i++) {
@@ -66,11 +52,8 @@ void updateNeighbors(struct Cell cells[width][height]) {
 
 
 int main() {
-
     srand(time(NULL));
-
     struct Cell cells[width][height];
-
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             int alive = ((double)rand()/(double)RAND_MAX < aliveChanceOnSpawn) ? 1 : 0; 
@@ -78,7 +61,6 @@ int main() {
             cells[i][j] = tempCell;
         }
     }
-
     while (1) {
         draw(cells);
         updateNeighbors(cells);
