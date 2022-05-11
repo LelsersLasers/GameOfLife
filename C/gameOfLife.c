@@ -29,7 +29,6 @@ void draw(struct Cell cells[width][height]) {
         printf("#");
         for (int xPos = 0; xPos < width; xPos++) {
             if (cells[xPos][yPos].alive) {
-                // printf("%i", cells[xPos][yPos].neighbors);
                 printf(".");
             }
             else {
@@ -49,25 +48,18 @@ void updateNeighbors(struct Cell cells[width][height]) {
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             cells[i][j].neighbors = 0;
-            
-            if (i - 1 > 0 && j - 1 > 0 && cells[i - 1][j - 1].alive) cells[i][j].neighbors++;
-            if (i - 1 > 0 && cells[i - 1][j].alive) cells[i][j].neighbors++;
-            if (i - 1 > 0 && j + 1 < height && cells[i - 1][j + 1].alive) cells[i][j].neighbors++;
-            if (j - 1 > 0 && cells[i][j - 1].alive) cells[i][j].neighbors++;
-            if (j + 1 < height && cells[i][j + 1].alive) cells[i][j].neighbors++;
-            if (i + 1 < width && j - 1 > 0 && cells[i + 1][j - 1].alive) cells[i][j].neighbors++;
-            if (i + 1 < width && cells[i + 1][j].alive) cells[i][j].neighbors++;
-            if (i + 1 < width && j + 1 < height && cells[i + 1][j + 1].alive) cells[i][j].neighbors++;
+            int offsets[8][2] = {{1, 0}, {1, 1}, {1, -1}, {0, 1}, {0, -1}, {-1, 0}, {-1, 1}, {-1, -1}};
+            for (int k = 0; k < 8; k++) {
+                if (i + offsets[k][0] >= 0 && i + offsets[k][0] < width && j + offsets[k][1] >= 0 && j + offsets[k][1] < height && cells[i + offsets[k][0]][j + offsets[k][1]].alive) {
+                    cells[i][j].neighbors++;
+                }
+            }
         }
     }
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            if (cells[i][j].neighbors == 3) {
-                cells[i][j].alive = 1;
-            }
-            else if (cells[i][j].neighbors < 2 || cells[i][j].neighbors > 3) {
-                cells[i][j].alive = 0;
-            }
+            if (cells[i][j].neighbors == 3) cells[i][j].alive = 1;
+            else if (cells[i][j].neighbors < 2 || cells[i][j].neighbors > 3) cells[i][j].alive = 0;
         }
     }
 }

@@ -107,18 +107,8 @@ public class GameOfLife extends Game {
 	private void updateCells() {
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				int[][] offsets = {
-						{1, 0},
-						{1, 1},
-						{1, -1},
-						{0, 1},
-						{0, -1},
-						{-1, 0},
-						{-1, 1},
-						{-1, -1}
-				};
-
-                cells[i][j].clearNeighbors();
+				cells[i][j].clearNeighbors();
+				int[][] offsets = {{1, 0}, {1, 1}, {1, -1}, {0, 1}, {0, -1}, {-1, 0}, {-1, 1}, {-1, -1}};
 				for (int[] offset : offsets) {
 					try {
                         cells[i][j].addNeighbor(cells[i + offset[0]][j + offset[1]].getAlive());
