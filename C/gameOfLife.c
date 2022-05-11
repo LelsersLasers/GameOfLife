@@ -4,15 +4,14 @@
 #include <stdio.h>  
 
 
-#define width 45 // 20
-#define height 27 // 12
-#define aliveChanceOnSpawn 20
+#define width 45
+#define height 28
+#define aliveChanceOnSpawn .2
 #define delay 1
 
 
 struct Cell {
     int alive;
-    int shouldBeAlive;
     int neighbors;
 };
 
@@ -49,44 +48,26 @@ void draw(struct Cell cells[width][height]) {
 void updateNeighbors(struct Cell cells[width][height]) {
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            int neighbors = 0;
+            cells[i][j].neighbors = 0;
             
-            if (i - 1 > 0 && j - 1 > 0 && cells[i - 1][j - 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i - 1 > 0 && cells[i - 1][j].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i - 1 > 0 && j + 1 < height && cells[i - 1][j + 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (j - 1 > 0 && cells[i][j - 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (j + 1 < height && cells[i][j + 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i + 1 < width && j - 1 > 0 && cells[i + 1][j - 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i + 1 < width && cells[i + 1][j].alive) {
-                neighbors = neighbors + 1;
-            }
-            if (i + 1 < width && j + 1 < height && cells[i + 1][j + 1].alive) {
-                neighbors = neighbors + 1;
-            }
-            cells[i][j].neighbors = neighbors;
-            if (neighbors == 3) {
-                cells[i][j].shouldBeAlive = 1;
-            }
-            else if (neighbors < 2 || neighbors > 3) {
-                cells[i][j].shouldBeAlive = 0;
-            }
+            if (i - 1 > 0 && j - 1 > 0 && cells[i - 1][j - 1].alive) cells[i][j].neighbors++;
+            if (i - 1 > 0 && cells[i - 1][j].alive) cells[i][j].neighbors++;
+            if (i - 1 > 0 && j + 1 < height && cells[i - 1][j + 1].alive) cells[i][j].neighbors++;
+            if (j - 1 > 0 && cells[i][j - 1].alive) cells[i][j].neighbors++;
+            if (j + 1 < height && cells[i][j + 1].alive) cells[i][j].neighbors++;
+            if (i + 1 < width && j - 1 > 0 && cells[i + 1][j - 1].alive) cells[i][j].neighbors++;
+            if (i + 1 < width && cells[i + 1][j].alive) cells[i][j].neighbors++;
+            if (i + 1 < width && j + 1 < height && cells[i + 1][j + 1].alive) cells[i][j].neighbors++;
         }
     }
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            cells[i][j].alive = cells[i][j].shouldBeAlive;
+            if (cells[i][j].neighbors == 3) {
+                cells[i][j].alive = 1;
+            }
+            else if (cells[i][j].neighbors < 2 || cells[i][j].neighbors > 3) {
+                cells[i][j].alive = 0;
+            }
         }
     }
 }
@@ -100,8 +81,8 @@ int main() {
 
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            int alive = (rand() % 100 < aliveChanceOnSpawn) ? 1:0; 
-            struct Cell tempCell = {alive, alive, -1};
+            int alive = ((double)rand()/(double)RAND_MAX < aliveChanceOnSpawn) ? 1 : 0; 
+            struct Cell tempCell = {alive, 0};
             cells[i][j] = tempCell;
         }
     }
