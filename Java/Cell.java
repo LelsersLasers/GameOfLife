@@ -1,26 +1,22 @@
-import java.util.Random;
-
-
 public class Cell {
-   
-    int neighbors = - 1;
-    boolean alive = false;
-    boolean shouldBeAlive;
+    private boolean alive;
+    private int neighbors;
 
-    Cell(int aliveChanceOnSpawn) {
-        if (new Random().nextInt(100) < aliveChanceOnSpawn) {
-            alive = true;
-        }
-        shouldBeAlive = alive;
+    Cell(double aliveChanceOnSpawn) {
+        alive = Math.random() < aliveChanceOnSpawn;
+    }
+
+    public boolean getAlive() { return alive; }
+    public void clearNeighbors() { neighbors = 0; }
+    public void addNeighbor(boolean condition) { neighbors += condition ? 1 : 0; }
+
+    public void sync() {
+        if (neighbors == 3) alive = true;
+        else if (neighbors < 2 || neighbors > 3) alive = false;
     }
 
     void drawCell() {
-        if (alive) {
-            // print(neighbors);
-            System.out.print(".");
-        }
-        else {
-            System.out.print(" ");
-        }
+        if (alive)System.out.print(".");
+        else System.out.print(" ");
     }
 }
