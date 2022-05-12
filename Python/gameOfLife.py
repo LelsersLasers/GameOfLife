@@ -3,62 +3,55 @@ import time
 import os
 
 
-width = 45
-height = 28
+WIDTH = 45
+HEIGHT = 27
 aliveChanceOnSpawn = 0.2
-delay = 0.05
+DELAY = 0.05
 
 
 class Cell():
     def __init__(self):
         self.alive = random.random() < aliveChanceOnSpawn
         self.neighbors = 0
+    def drawCell(self): print(("@" if self.alive else " "), end='')
     def sync(self):
         if self.neighbors == 3: self.alive = True
         elif self.neighbors < 2 or self.neighbors > 3: self.alive = False
-    def drawCell(self):
-        if self.alive: print(".", end='')
-        else: print(" ", end='')
 
 
 def updateCells(cells):
-    for i in range(len(cells)):
-        for j in range(len(cells[i])):
-            cells[i][j].neighbors = 0
+    for x in range(len(cells)):
+        for y in range(len(cells[x])):
+            cells[x][y].neighbors = 0
             offsets = [[1, 0], [1, 1], [1, -1], [0, 1], [0, -1], [-1, 0], [-1, 1], [-1, -1]]
             for offset in offsets:
-                try:
-                    cells[i][j].neighbors += cells[i + offset[0]][j + offset[1]].alive
-                except:
-                    continue
-    for cellColumn in cells:
-        for cell in cellColumn:
-            cell.sync()
-
+                try: cells[x][y].neighbors += cells[x + offset[0]][y + offset[1]].alive
+                except: continue
+    for x in range(len(cells)):
+        for y in range(len(cells[x])):
+            cells[x][y].sync()
 
 def drawCells(cells):
     os.system("cls")
-    print("#" * (width + 2))
-    for yPos in range(height):
+    print("#" * (WIDTH + 2))
+    for y in range(HEIGHT):
         print("#", end='')
-        for xPos in range(width):
-            cells[xPos][yPos].drawCell()
+        for x in range(WIDTH): cells[x][y].drawCell()
         print("#")
-    print("#" * (width + 2))     
+    print("#" * (WIDTH + 2))     
 
 
 def main():
     cells = []
-    for i in range(width):
+    for x in range(WIDTH):
         cellColumn = []
-        for j in range(height):
+        for y in range(HEIGHT):
             cellColumn.append(Cell())
         cells.append(cellColumn)
     while True:
         drawCells(cells)
         updateCells(cells)
-        time.sleep(delay)
-
+        time.sleep(DELAY)
 
 
 main()
