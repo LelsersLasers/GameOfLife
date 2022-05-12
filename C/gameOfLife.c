@@ -50,9 +50,7 @@ void updateNeighbors(struct Cell cells[WIDTH][HEIGHT]) {
 int main() {
     srand(time(NULL));
 
-    double deltaSec;
-
-    struct Cell cells[WIDTH][HEIGHT];
+   struct Cell cells[WIDTH][HEIGHT];
     for (int x = 0; x < WIDTH; x++) {
         for (int y = 0; y < HEIGHT; y++) {
             int alive = ((double)rand()/(double)RAND_MAX < aliveChanceOnSpawn) ? 1 : 0; 
@@ -63,11 +61,11 @@ int main() {
 
     while (1) {
         clock_t start = clock();
-        if (deltaSec >= 1.0/FPS) {
-            updateNeighbors(cells);
-            while (deltaSec >= 1.0/FPS) deltaSec -= 1.0/FPS;
-        }
+
+        updateNeighbors(cells);
         draw(cells);
-        deltaSec += (clock() - start)/(double)CLOCKS_PER_SEC;
+
+        double sleepTime = 1000.0/FPS - ((clock() - start)/(double)CLOCKS_PER_SEC * 1000);
+        _sleep((sleepTime > 0) ? sleepTime : 0);
     }
 }
