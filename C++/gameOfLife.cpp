@@ -7,7 +7,7 @@ using namespace std;
 #define WIDTH 45
 #define HEIGHT 27
 #define aliveChanceOnSpawn 0.2
-#define DELAY 50
+#define FPS 8.0
 
 
 class Cell {
@@ -63,14 +63,20 @@ void updateNeighbors(Cell cells[WIDTH][HEIGHT]) {
 
 int main() {
     srand(time(NULL));
+
     Cell cells[WIDTH][HEIGHT];
     for (int i = 0; i < WIDTH; i++) {
         for (int y = 0; y < HEIGHT; y++) cells[i][y] = Cell();
     }
+
     while (true) {
+        clock_t start = clock();
+        
         draw(cells);
         updateNeighbors(cells);
-        _sleep(DELAY);
+
+        double sleepTime = 1000.0/FPS - ((clock() - start)/(double)CLOCKS_PER_SEC * 1000);
+        _sleep((sleepTime > 0) ? sleepTime : 0);
     }
 
 }
