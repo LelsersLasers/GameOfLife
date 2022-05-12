@@ -5,7 +5,7 @@ public class GameOfLife {
     public static final int WIDTH = 45;
     public static final int HEIGHT = 27;
     public static final double aliveChanceOnSpawn = 0.2;
-    public static final int DELAY = 50;
+    public static final double FPS = 8.0;
 
     public static void main(String[] args) {
         Cell[][] cells = new Cell[WIDTH][HEIGHT];
@@ -13,9 +13,13 @@ public class GameOfLife {
             for (int y = 0; y < HEIGHT; y++) cells[x][y] = new Cell(aliveChanceOnSpawn);
         }
         while (true) {
+            double start = System.nanoTime();
+
             draw(cells);
             updateNeighbors(cells);
-            try { Thread.sleep(DELAY); }
+
+            double sleepTime = (1_000_000_000.0/FPS - (System.nanoTime() - start))/1_000_000.0;
+            try { Thread.sleep((long)((sleepTime > 0) ? sleepTime : 0)); }
             catch(InterruptedException e) { Thread.currentThread().interrupt(); }
         }
     }
