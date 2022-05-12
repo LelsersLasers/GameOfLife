@@ -1,122 +1,63 @@
-import  random
+import random
 import time
 import os
 
 
-width = 45 # 20
-height = 27 # 12
-aliveChanceOnSpawn = 20
+width = 45
+height = 28
+aliveChanceOnSpawn = 0.2
 delay = 0.05
 
 
-class Posistion():
-
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def compare(self, otherPos):
-        if otherPos.x == self.x and otherPos.y == self.y:
-            return True
-        return False
-
-
 class Cell():
-
-    def __init__(self, position):
-        self.position = position
-        self.neighbors = -1
-
-        self.alive = False
-        chanceValue = random.randint(1, 100)
-        if chanceValue <= aliveChanceOnSpawn:
-            self.alive = True
-
-        self.shouldBeAlive = self.alive
-
-    def drawCell(self):
-        if self.alive:
-            # print("%i" % self.neighbors, end='')
-            print(".", end='')
-        else:
-            print(" ", end='')
-
-    def getPosition(self):
-        return self.position
-
-
-class CellHolder():
-
     def __init__(self):
-        self.cells = []
+        self.alive = random.random() < aliveChanceOnSpawn
+        self.neighbors = 0
+    def sync(self):
+        if self.neighbors == 3: self.alive = True
+        elif self.neighbors < 2 or self.neighbors > 3: self.alive = False
+    def drawCell(self):
+        if self.alive: print(".", end='')
+        else: print(" ", end='')
 
-        for yPos in range(height):
-            for xPos in range(width):
-                tempPos = Posistion(xPos, yPos)
-                self.cells.append(Cell(tempPos))
 
-    def findCell(self, position):
-        for cell in self.cells:
-            if cell.getPosition().compare(position):
-                return cell
-        print("failed to find cell")
-        return -1
-
-    def checkDrawCell(self, position):
-        cell = self.findCell(position)
-        cell.drawCell()
-
-    def updateNeighbors(self):
-        offsets = [
-                [1, 0],
-                [1, 1],
-                [1, -1],
-                [0, 1],
-                [0, -1],
-                [-1, 0],
-                [-1, 1],
-                [-1, -1]
-            ]
-        for cell in self.cells:
-            cell.neighbors = 0
+def updateCells(cells):
+    for i in range(len(cells)):
+        for j in range(len(cells[i])):
+            cells[i][j].neighbors = 0
+            offsets = [[1, 0], [1, 1], [1, -1], [0, 1], [0, -1], [-1, 0], [-1, 1], [-1, -1]]
             for offset in offsets:
-                newPos = Posistion(cell.getPosition().x + offset[0], cell.getPosition().y + offset[1])
-                if newPos.x < 0 or newPos.x >= width or newPos.y < 0 or newPos.y >= height:
+                try:
+                    cells[i][j].neighbors += cells[i + offset[0]][j + offset[1]].alive
+                except:
                     continue
-                if self.findCell(newPos).alive:
-                    cell.neighbors += 1
-
-            if cell.neighbors == 3:
-                cell.shouldBeAlive = True
-            elif cell.neighbors < 2 or cell.neighbors > 3:
-                cell.shouldBeAlive = False
-
-        for cell in self.cells:
-            cell.alive = cell.shouldBeAlive
+    for cellColumn in cells:
+        for cell in cellColumn:
+            cell.sync()
 
 
-def draw(ch):
+def drawCells(cells):
     os.system("cls")
     print("#" * (width + 2))
-    print("")
     for yPos in range(height):
         print("#", end='')
         for xPos in range(width):
-            drawPos = Posistion(xPos, yPos)
-            ch.checkDrawCell(drawPos)
+            cells[xPos][yPos].drawCell()
         print("#")
-    print("#" * (width + 2))
-    print("")      
+    print("#" * (width + 2))     
 
 
 def main():
-
-    ch = CellHolder()
-
+    cells = []
+    for i in range(width):
+        cellColumn = []
+        for j in range(height):
+            cellColumn.append(Cell())
+        cells.append(cellColumn)
     while True:
-        draw(ch)
-        ch.updateNeighbors()
-        time.sleep(1)
+        drawCells(cells)
+        updateCells(cells)
+        time.sleep(delay)
 
 
 
