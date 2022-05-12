@@ -6,7 +6,7 @@
 #define WIDTH 45
 #define HEIGHT 27
 #define aliveChanceOnSpawn 0.2
-#define DELAY 50
+#define FPS 8.0
 
 
 struct Cell {
@@ -49,6 +49,9 @@ void updateNeighbors(struct Cell cells[WIDTH][HEIGHT]) {
 
 int main() {
     srand(time(NULL));
+
+    double deltaSec;
+
     struct Cell cells[WIDTH][HEIGHT];
     for (int x = 0; x < WIDTH; x++) {
         for (int y = 0; y < HEIGHT; y++) {
@@ -57,9 +60,14 @@ int main() {
             cells[x][y] = tempCell;
         }
     }
+
     while (1) {
+        clock_t start = clock();
+        if (deltaSec >= 1.0/FPS) {
+            updateNeighbors(cells);
+            while (deltaSec >= 1.0/FPS) deltaSec -= 1.0/FPS;
+        }
         draw(cells);
-        updateNeighbors(cells);
-        _sleep(DELAY);
+        deltaSec += (clock() - start)/(double)CLOCKS_PER_SEC;
     }
 }
