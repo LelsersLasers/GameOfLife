@@ -23,10 +23,10 @@ function updateCells(cells) {
     for (let i = 0; i < width; i++) {
         for (let j = 0; j < height; j++) {
             cells[i][j].neighbors = 0;
-            offsets = [[1, 0], [1, 1], [1, -1], [0, 1], [0, -1], [-1, 0], [-1, 1], [-1, -1]];
+            let offsets = [[1, 0], [1, 1], [1, -1], [0, 1], [0, -1], [-1, 0], [-1, 1], [-1, -1]];
             for (let k in offsets) {
                 try {
-                    cells[i][j] += cells[i + offset[k][0]][j + offset[k][1]].alive;
+                    cells[i][j].neighbors += cells[i + offsets[k][0]][j + offsets[k][1]].alive;
                 }
                 catch (e) {}
             }
