@@ -1,7 +1,7 @@
 const WIDTH = 45;
 const HEIGHT = 27;
 const aliveChanceOnSpawn = .2;
-const delay = 50;
+const FPS = 8.0;
 
 class Cell {
     constructor() {
@@ -51,10 +51,15 @@ async function main() {
         for (let y = 0; y < HEIGHT; y++) cellColumn.push(new Cell());
         cells.push(cellColumn);
     }
+
     while (true) {
+        start = performance.now();
+        
         draw(cells);
         updateCells(cells);
-        await new Promise(r => setTimeout(r, delay));
+
+        sleepTime = 1000/FPS - (performance.now() - start);
+        await new Promise(r => setTimeout(r, (sleepTime > 0 ? sleepTime : 0)));
     }
 }
 
