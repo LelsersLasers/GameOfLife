@@ -1,5 +1,5 @@
-const width = 45;
-const height = 27;
+const WIDTH = 45;
+const HEIGHT = 27;
 const aliveChanceOnSpawn = .2;
 const delay = 50;
 
@@ -8,56 +8,47 @@ class Cell {
         this.alive = Math.random() < aliveChanceOnSpawn;
         this.neighbors = 0;
     }
+    draw() { process.stdout.write((this.alive ? '@' : " ")); }
     sync() {
         if (this.neighbors == 3) this.alive = true;
         else if (this.neighbors < 2 || this.neighbors > 3) this.alive = false;
     }
-    draw() {
-        if (this.alive) process.stdout.write('.');
-        else process.stdout.write(' ');
-    }
 }
 
 
+function draw(cells) {
+    console.clear()
+    for (let i = 0; i < WIDTH + 2; i++) process.stdout.write('#');
+    process.stdout.write('\n');
+    for (let y = 0; y < HEIGHT; y++) {
+        process.stdout.write('#');
+        for (let x = 0; x < WIDTH; x++) cells[x][y].draw();
+        process.stdout.write('#\n');
+    }
+    for (let i = 0; i < WIDTH + 2; i++) process.stdout.write('#');
+}
+
 function updateCells(cells) {
-    for (let i = 0; i < width; i++) {
-        for (let j = 0; j < height; j++) {
-            cells[i][j].neighbors = 0;
+    for (let x = 0; x < WIDTH; x++) {
+        for (let y = 0; y < HEIGHT; y++) {
+            cells[x][y].neighbors = 0;
             let offsets = [[1, 0], [1, 1], [1, -1], [0, 1], [0, -1], [-1, 0], [-1, 1], [-1, -1]];
-            for (let k in offsets) {
-                try {
-                    cells[i][j].neighbors += cells[i + offsets[k][0]][j + offsets[k][1]].alive;
-                }
+            for (let i in offsets) {
+                try { cells[x][y].neighbors += cells[x + offsets[i][0]][y + offsets[i][1]].alive; }
                 catch (e) {}
             }
         }
     }
-    for (let i = 0; i < width; i++) {
-        for (let j = 0; j < height; j++) {
-            cells[i][j].sync();
-        }
+    for (let x = 0; x < WIDTH; x++) {
+        for (let y = 0; y < HEIGHT; y++) cells[x][y].sync();
     }
-    return cells;
-}
-
-function draw(cells) {
-    console.clear()
-    for (let xPos = 0; xPos < width + 2; xPos++) process.stdout.write('#');
-    process.stdout.write('\n');
-    for (let yPos = 0; yPos < height; yPos++) {
-        process.stdout.write('#');
-        for (let xPos = 0; xPos < width; xPos++) cells[xPos][yPos].draw();
-        process.stdout.write('#\n');
-    }
-    for (let xPos = 0; xPos < width + 2; xPos++) process.stdout.write('#');
-    process.stdout.write('\n');
 }
 
 async function main() {
     let cells = [];
-    for (let xPos = 0; xPos < width; xPos++) {
+    for (let x = 0; x < WIDTH; x++) {
         let cellColumn = [];
-        for (let yPos = 0; yPos < height; yPos++) cellColumn.push(new Cell());
+        for (let y = 0; y < HEIGHT; y++) cellColumn.push(new Cell());
         cells.push(cellColumn);
     }
     while (true) {
