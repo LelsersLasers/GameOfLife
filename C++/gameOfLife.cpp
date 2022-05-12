@@ -4,10 +4,10 @@
 
 using namespace std;
 
-#define width 45
-#define height 28
-#define aliveChanceOnSpawn .2
-#define delay 50
+#define WIDTH 45
+#define HEIGHT 27
+#define aliveChanceOnSpawn 0.2
+#define DELAY 50
 
 
 class Cell {
@@ -27,57 +27,53 @@ public:
         if (neighbors == 3) alive = true;
         else if (neighbors < 2 || neighbors > 3) alive = false;
     }
-
     void drawCell() {
-        if (alive) cout << ".";
-        else cout << " ";
+        cout << (alive ? "@" : " ");
     }
 };
 
 
-void draw(Cell cells[width][height]) {
+void draw(Cell cells[WIDTH][HEIGHT]) {
     system("CLS");
-    for (int i = 0; i < width + 2; i++) cout << "#";
+    for (int i = 0; i < WIDTH + 2; i++) cout << "#";
     printf("\n");
-    for (int yPos = 0; yPos < height; yPos++) {
+    for (int y = 0; y < HEIGHT; y++) {
         cout << "#";
-        for (int xPos = 0; xPos < width; xPos++) cells[xPos][yPos].drawCell();
+        for (int x = 0; x < WIDTH; x++) cells[x][y].drawCell();
         cout << "#" << endl;
     }
-    for (int i = 0; i < width + 2; i++) cout << "#";;
+    for (int i = 0; i < WIDTH + 2; i++) cout << "#";;
     printf("");
 }
 
-void updateNeighbors(Cell cells[width][height]) {
-    for (int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) {
-            cells[i][j].clearNeighbors();
+void updateNeighbors(Cell cells[WIDTH][HEIGHT]) {
+    for (int x = 0; x < WIDTH; x++) {
+        for (int y = 0; y < HEIGHT; y++) {
+            cells[x][y].clearNeighbors();
             int offsets[8][2] = {{1, 0}, {1, 1}, {1, -1}, {0, 1}, {0, -1}, {-1, 0}, {-1, 1}, {-1, -1}};
-            for (int k = 0; k < 8; k++) {
-                if (i + offsets[k][0] >= 0 && i + offsets[k][0] < width && j + offsets[k][1] >= 0 && j + offsets[k][1] < height) {
-                    cells[i][j].addNeighbor(cells[i + offsets[k][0]][j + offsets[k][1]].getAlive());
+            for (int i = 0; i < 8; i++) {
+                if (x + offsets[i][0] >= 0 && x + offsets[i][0] < WIDTH && y + offsets[i][1] >= 0 && y + offsets[i][1] < HEIGHT) {
+                    cells[x][y].addNeighbor(cells[x + offsets[i][0]][y + offsets[i][1]].getAlive());
                 }
             }
         }
     }
-    for (int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) cells[i][j].sync();
+    for (int x = 0; x < WIDTH; x++) {
+        for (int y = 0; y < HEIGHT; y++) cells[x][y].sync();
     }
 }
 
 
 int main() {
     srand(time(NULL));
-    Cell cells[width][height];
-    for (int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) {
-            cells[i][j] = Cell();
-        }
+    Cell cells[WIDTH][HEIGHT];
+    for (int i = 0; i < WIDTH; i++) {
+        for (int y = 0; y < HEIGHT; y++) cells[i][y] = Cell();
     }
     while (true) {
         draw(cells);
         updateNeighbors(cells);
-        _sleep(delay);
+        _sleep(DELAY);
     }
 
 }

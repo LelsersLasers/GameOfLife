@@ -20,10 +20,7 @@ void draw(struct Cell cells[WIDTH][HEIGHT]) {
     printf("\n");
     for (int y = 0; y < HEIGHT; y++) {
         printf("#");
-        for (int x = 0; x < WIDTH; x++) {
-            if (cells[x][y].alive) printf("@");
-            else printf(" ");
-        }
+        for (int x = 0; x < WIDTH; x++) printf(cells[x][y].alive ? "@" : " ");
         printf("#\n");
     }
     for (int i = 0; i < WIDTH + 2; i++) printf("#");
