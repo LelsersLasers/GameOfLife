@@ -6,7 +6,7 @@ import os
 WIDTH = 45
 HEIGHT = 27
 aliveChanceOnSpawn = 0.2
-DELAY = 0.05
+FPS = 8.0
 
 
 class Cell():
@@ -48,10 +48,15 @@ def main():
         for y in range(HEIGHT):
             cellColumn.append(Cell())
         cells.append(cellColumn)
+
     while True:
+        start = time.time()
+
         drawCells(cells)
         updateCells(cells)
-        time.sleep(DELAY)
+        
+        sleepTime = 1/FPS - (time.time() - start)
+        time.sleep(sleepTime if sleepTime > 0 else 0)
 
 
 main()
