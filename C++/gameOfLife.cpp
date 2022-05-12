@@ -22,13 +22,11 @@ public:
     bool getAlive() { return alive; }
     void clearNeighbors() { neighbors = 0; }
     void addNeighbor(bool condition) { neighbors += condition ? 1 : 0; }
+    void drawCell() { cout << (alive ? "@" : " "); }
 
     void sync() {
         if (neighbors == 3) alive = true;
         else if (neighbors < 2 || neighbors > 3) alive = false;
-    }
-    void drawCell() {
-        cout << (alive ? "@" : " ");
     }
 };
 
@@ -43,7 +41,6 @@ void draw(Cell cells[WIDTH][HEIGHT]) {
         cout << "#" << endl;
     }
     for (int i = 0; i < WIDTH + 2; i++) cout << "#";;
-    printf("");
 }
 
 void updateNeighbors(Cell cells[WIDTH][HEIGHT]) {

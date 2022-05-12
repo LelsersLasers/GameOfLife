@@ -24,7 +24,6 @@ void draw(struct Cell cells[WIDTH][HEIGHT]) {
         printf("#\n");
     }
     for (int i = 0; i < WIDTH + 2; i++) printf("#");
-    printf("");
 }
 
 void updateNeighbors(struct Cell cells[WIDTH][HEIGHT]) {
