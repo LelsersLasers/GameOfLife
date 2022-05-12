@@ -2,61 +2,50 @@
 
 public class GameOfLife {
 
-    public static final int width = 45;
-    public static final int height = 28;
-    public static final double aliveChanceOnSpawn = 0.20;
-    public static final int delay = 50;
+    public static final int WIDTH = 45;
+    public static final int HEIGHT = 27;
+    public static final double aliveChanceOnSpawn = 0.2;
+    public static final int DELAY = 50;
 
     public static void main(String[] args) {
-        Cell[][] cells = new Cell[width][height];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                cells[i][j] = new Cell(aliveChanceOnSpawn);
-            }
+        Cell[][] cells = new Cell[WIDTH][HEIGHT];
+        for (int x = 0; x < WIDTH; x++) {
+            for (int y = 0; y < HEIGHT; y++) cells[x][y] = new Cell(aliveChanceOnSpawn);
         }
         while (true) {
-            draw(width, height, cells);
-            updateNeighbors(width, height, cells);
-            try {
-                Thread.sleep(delay);
-            }
-            catch(InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
+            draw(cells);
+            updateNeighbors(cells);
+            try { Thread.sleep(DELAY); }
+            catch(InterruptedException e) { Thread.currentThread().interrupt(); }
         }
     }
 
-    static void draw(int width, int height, Cell[][] cells) {
+    static void draw(Cell[][] cells) {
         System.out.print("\033[H\033[2J"); // won't work with windows cmd
         System.out.flush();
-        for (int i = 0; i < width + 2; i++) System.out.print("#");
+        for (int i = 0; i < WIDTH + 2; i++) System.out.print("#");
         System.out.println("");
-        for (int yPos = 0; yPos < height; yPos++) {
+        for (int y = 0; y < HEIGHT; y++) {
             System.out.print("#");
-            for (int xPos = 0; xPos < width; xPos++) cells[xPos][yPos].drawCell();
+            for (int x = 0; x < WIDTH; x++) cells[x][y].drawCell();
             System.out.println("#");
         }
-        for (int i = 0; i < width + 2; i++) System.out.print("#");
-        System.out.println("");
+        for (int i = 0; i < WIDTH + 2; i++) System.out.print("#");
     }
 
-    static void updateNeighbors(int width, int height, Cell[][] cells) {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                cells[i][j].clearNeighbors();
+    static void updateNeighbors(Cell[][] cells) {
+        for (int x = 0; x < WIDTH; x++) {
+            for (int y = 0; y < HEIGHT; y++) {
+                cells[x][y].clearNeighbors();
 				int[][] offsets = {{1, 0}, {1, 1}, {1, -1}, {0, 1}, {0, -1}, {-1, 0}, {-1, 1}, {-1, -1}};
 				for (int[] offset : offsets) {
-					try {
-                        cells[i][j].addNeighbor(cells[i + offset[0]][j + offset[1]].getAlive());
-					}
+					try { cells[x][y].addNeighbor(cells[x + offset[0]][y + offset[1]].getAlive()); }
 					catch (ArrayIndexOutOfBoundsException ignored) {}
 				}
             }
         }
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                cells[i][j].sync();
-            }
+        for (int x = 0; x < WIDTH; x++) {
+            for (int y = 0; y < HEIGHT; y++) cells[x][y].sync();
         }
     }
 }
