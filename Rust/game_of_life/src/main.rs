@@ -41,9 +41,7 @@ fn update_cells(mut cells: [[Cell; HEIGHT]; WIDTH]) -> [[Cell; HEIGHT]; WIDTH] {
         }
     }
     for x in 0..WIDTH {
-        for y in 0..HEIGHT {
-            cells[x][y].sync();
-        }
+        for y in 0..HEIGHT { cells[x][y].sync(); }
     }
     cells
 }
@@ -68,10 +66,13 @@ fn main() {
     for x in 0..WIDTH {
         for y in 0..HEIGHT { cells[x][y] = Cell::new(); }
     }
-
     loop {
+        let start = time::Instant::now();
+
         cells = draw_cells(cells);
         cells = update_cells(cells);
-        thread::sleep(time::Duration::from_millis(1000/FPS as u64));
+
+        let sleep_time: u64 = (1000/FPS as u64) - start.elapsed().as_secs() * 1000;
+        thread::sleep(time::Duration::from_millis(sleep_time));
     }
 }
