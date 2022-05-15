@@ -1,0 +1,12 @@
+C:\Users\milla\Desktop\coding\GameOfLife\ggez\game_of_life\target\debug\deps\arrayvec-8eaba5c8ea657ac6.rmeta: C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\lib.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\maybe_uninit.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\array.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\array_string.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\char.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\errors.rs
+
+C:\Users\milla\Desktop\coding\GameOfLife\ggez\game_of_life\target\debug\deps\libarrayvec-8eaba5c8ea657ac6.rlib: C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\lib.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\maybe_uninit.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\array.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\array_string.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\char.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\errors.rs
+
+C:\Users\milla\Desktop\coding\GameOfLife\ggez\game_of_life\target\debug\deps\arrayvec-8eaba5c8ea657ac6.d: C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\lib.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\maybe_uninit.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\array.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\array_string.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\char.rs C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\errors.rs
+
+C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\lib.rs:
+C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\maybe_uninit.rs:
+C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\array.rs:
+C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\array_string.rs:
+C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\char.rs:
+C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\arrayvec-0.5.2\src\errors.rs:
