@@ -2,7 +2,7 @@
 
 https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
-My attempt to write Game of Life in Python, C, C++, Java, and Javascript (the libgdx is in Java, but a graphical app instead of terminal and with a lot more features)
+My attempt to write Game of Life in Python, C, C++, Java, Rust, and Javascript (the libgdx is in Java, but a graphical app instead of terminal and with a lot more features)
 
 
 Cell Rules:
@@ -18,13 +18,18 @@ These rules, which compare the behavior of the automaton to real life, can be co
     All other live cells die in the next generation. Similarly, all other dead cells stay dead.
 
 
-Game board is 45x28, the '.'s are alive cells
+Game board is 45x27, the '@'s are alive cells
 
 There is no way to exit the game outside of control+c
 
 
-I THINK the libaries for C/C++ work on Windows/Mac/Linux all the same
-
-Also I THINK the java should be pre-complied (just 'java GameOfLife')
-
-The Javascript should be run with 'node gameOfLife.js'
+Running:
+- I THINK the C/C++ should just work (just run the EXE)
+    - Ihey should be mostly OS independant, so you should be able to compile them for non-Windows OSes
+    - (they at least work in Windows 10)
+- Also I THINK the java should just work ()'java GameOfLife')
+- The Javascript should be run with 'node gameOfLife.js'
+- The Rust EXE (in Rust\game_of_life\target\release) should just work
+    - If not, it can be run/build with 'cargo run'/'cargo build'
+- Note: in some versions (Java, etc) the console clearing doesn't work in the Windows Commmand Prompt
+    - It will not error, just not look perfect
