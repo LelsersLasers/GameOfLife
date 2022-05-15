@@ -21,26 +21,51 @@ const INITIAL_FPS: u32 = 8;
 struct Cell {
 	alive: bool,
 	neighbors: u8,
+	status: usize,
 }
 impl Cell {
 	pub fn new() -> Self {
 		Self {
 			alive: rand::thread_rng().gen::<f64>() < ALIVE_CHANCE_ON_SPAWN.into(),
             neighbors: 0,
+			status: 0,
 		}
 	}
     fn sync(&mut self) {
+		let alive_before = self.alive;
         if self.neighbors == 3 { self.alive = true; }
         else if self.neighbors < 2 || self.neighbors > 3 { self.alive = false; }
+
+		if !alive_before && !self.alive{
+			self.status = 0; // still dead
+		}
+        else if !alive_before {
+			self.status = 1; // newly alive
+		}
+		else if !self.alive {
+			self.status = 2; // newly dead
+		}
+		else {
+			self.status = 3;// still alive
+		}
     }
 	fn draw(&self, context: &mut Context, rect: graphics::Rect, draw_mode: u8) -> GameResult {
 		let mut color = graphics::Color::BLACK;
 		if draw_mode == 0 {
 			if self.alive {
-				color = graphics::Color::WHITE;
+				color = graphics::Color::new(218.0/255.0, 165.0/255.0, 32.0/255.0, 1.0); // "GOLDENROD"
 			}
 		}
 		else if draw_mode == 1 {
+			let colors = [
+				graphics::Color::BLACK,
+				graphics::Color::GREEN,
+				graphics::Color::RED,
+				graphics::Color::BLUE
+			];
+			color = colors[self.status]
+		}
+		else if draw_mode == 2 {
 			if self.alive {
 				color = graphics::Color::YELLOW;
 			}
@@ -145,7 +170,7 @@ impl Controller {
 			self.randomize_cells();
 		}
 		if self.space_toggle.down(keyboard::is_key_pressed(context, KeyCode::Space)) {
-			self.draw_mode = (self.draw_mode + 1) % 2;
+			self.draw_mode = (self.draw_mode + 1) % 3;
 		}
 		if self.up_toggle.down(keyboard::is_key_pressed(context, KeyCode::Up)) {
 			self.fps += 1;
