@@ -32,7 +32,7 @@ def updateCells(cells):
             cells[x][y].sync()
 
 def drawCells(cells):
-    os.system("cls")
+    os.system("cls") # might need to be "clear" on UNIX/non-WIndows systems
     print("#" * (WIDTH + 2))
     for y in range(HEIGHT):
         print("#", end='')

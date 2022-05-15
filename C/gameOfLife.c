@@ -15,7 +15,7 @@ struct Cell {
 };
 
 void draw(struct Cell cells[WIDTH][HEIGHT]) {
-    system("CLS");
+    system("CLS"); // might need to be "clear" on UNIX/non-WIndows systems
     for (int i = 0; i < WIDTH + 2; i++) printf("#");
     printf("\n");
     for (int y = 0; y < HEIGHT; y++) {
