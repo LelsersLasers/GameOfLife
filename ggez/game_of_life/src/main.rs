@@ -33,11 +33,24 @@ impl Cell {
         if self.neighbors == 3 { self.alive = true; }
         else if self.neighbors < 2 || self.neighbors > 3 { self.alive = false; }
     }
-	fn draw(&self, context: &mut Context, rect: graphics::Rect) -> GameResult {
-		if self.alive {
-			let rect_mesh = graphics::Mesh::new_rectangle(context, graphics::DrawMode::fill(), rect, graphics::Color::WHITE)?;
-			graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
+	fn draw(&self, context: &mut Context, rect: graphics::Rect, draw_mode: u8) -> GameResult {
+		let mut color = graphics::Color::BLACK;
+		if draw_mode == 0 {
+			if self.alive {
+				color = graphics::Color::WHITE;
+			}
 		}
+		else if draw_mode == 1 {
+			if self.alive {
+				color = graphics::Color::YELLOW;
+			}
+			else {
+				let brightness = self.neighbors as f32/8.0;
+				color = graphics::Color::new(brightness, brightness, brightness, 1.0);
+			}
+		}
+		let rect_mesh = graphics::Mesh::new_rectangle(context, graphics::DrawMode::fill(), rect, color)?;
+				graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
 		Ok(())
 	}
 }
@@ -70,6 +83,7 @@ struct Controller {
 	frame: u128,
 	fps: u32,
 	paused: bool,
+	draw_mode: u8,
 	mouse_toggle: ToggleKey,
 	space_toggle: ToggleKey,
 	up_toggle: ToggleKey,
@@ -88,6 +102,7 @@ impl Controller {
 			frame: 0,
 			fps: INITIAL_FPS,
 			paused: false,
+			draw_mode: 0,
 			mouse_toggle: ToggleKey::new(),
 			space_toggle: ToggleKey::new(),
 			up_toggle: ToggleKey::new(),
@@ -120,7 +135,7 @@ impl Controller {
 					x: x as f32 * (SIZE + SPACER) + SPACER,
 					y: y as f32 * (SIZE + SPACER) + SPACER
 				});
-				self.cells[x][y].draw(context, rect)?;
+				self.cells[x][y].draw(context, rect, self.draw_mode)?;
 			}
 		}
 		Ok(())
@@ -130,7 +145,7 @@ impl Controller {
 			self.randomize_cells();
 		}
 		if self.space_toggle.down(keyboard::is_key_pressed(context, KeyCode::Space)) {
-			self.paused = !self.paused;
+			self.draw_mode = (self.draw_mode + 1) % 2;
 		}
 		if self.up_toggle.down(keyboard::is_key_pressed(context, KeyCode::Up)) {
 			self.fps += 1;
