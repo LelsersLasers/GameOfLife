@@ -63,7 +63,7 @@ impl Cell {
 				graphics::Color::RED,
 				graphics::Color::BLUE
 			];
-			color = colors[self.status]
+			color = colors[self.status];
 		}
 		else {
 			if self.alive {
@@ -74,11 +74,15 @@ impl Cell {
 				color = graphics::Color::new(brightness, brightness, brightness, 1.0);
 			}
 		}
-		let rect_mesh = graphics::Mesh::new_rectangle(context, graphics::DrawMode::fill(), rect, color)?;
-		graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
-		if draw_mode == 3 && self.neighbors > 0 {
-			let text = graphics::Text::new(self.neighbors.to_string());
-			graphics::draw(context, &text, graphics::DrawParam::default().dest(rect.point()))?;
+
+		if color != graphics::Color::BLACK {
+			let rect_mesh = graphics::Mesh::new_rectangle(context, graphics::DrawMode::fill(), rect, color)?;
+			graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
+
+			if draw_mode == 3 && self.neighbors > 0 {
+				let text = graphics::Text::new(self.neighbors.to_string());
+				graphics::draw(context, &text, graphics::DrawParam::default().dest(rect.point()))?;
+			}
 		}
 		Ok(())
 	}

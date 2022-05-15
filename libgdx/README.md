@@ -12,6 +12,7 @@ To run:
 
 Controls:
 - Q/ESC: quit
+	- Can also close the window normally (with X button in top right, etc)
 - R: re-randomize the cells
 - SPACE: switch between view modes
 	- normal view: shows alive cells
