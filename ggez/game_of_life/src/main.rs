@@ -1,4 +1,5 @@
 use rand::Rng;
+use std::time::Duration;
 
 use ggez;
 use ggez::{Context, GameResult};
@@ -11,6 +12,7 @@ const HEIGHT: f32 = 28.0;
 const SIZE: f32 = 16.0;
 const SPACER: f32 = 4.0;
 const ALIVE_CHANCE_ON_SPAWN: f32 = 0.2;
+const FPS: f32 = 8.0;
 
 
 #[derive(Copy, Clone)]
@@ -39,8 +41,10 @@ impl Cell {
 	}
 }
 
+
 struct Controller {
 	cells: [[Cell; HEIGHT as usize]; WIDTH as usize],
+	frame: u128,
 }
 
 impl Controller {
@@ -51,9 +55,9 @@ impl Controller {
 				temp_cells[x][y] = Cell::new();
 			}
 		}
-
 		Self {
 			cells: temp_cells,
+			frame: 0,
 		}
 	}
 	fn update_cells(&mut self) {
@@ -90,8 +94,15 @@ impl Controller {
 }
 
 impl event::EventHandler for Controller {
-	fn update(&mut self, _context: &mut Context) -> GameResult {
-		self.update_cells();
+	fn update(&mut self, context: &mut Context) -> GameResult {
+		self.frame += Duration::as_nanos(&ggez::timer::delta(context));
+		if self.frame >= 1_000_000_000/FPS as u128 {
+			self.update_cells();
+			while self.frame >= 1_000_000_000/FPS as u128 {
+				self.frame -= 1_000_000_000/FPS as u128;
+			}
+		}
+		
 		Ok(())
 	}
 	fn draw(&mut self, context: &mut Context) -> GameResult {
