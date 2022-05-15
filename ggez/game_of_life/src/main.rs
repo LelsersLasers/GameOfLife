@@ -65,7 +65,7 @@ impl Cell {
 			];
 			color = colors[self.status]
 		}
-		else if draw_mode == 2 {
+		else {
 			if self.alive {
 				color = graphics::Color::YELLOW;
 			}
@@ -75,7 +75,11 @@ impl Cell {
 			}
 		}
 		let rect_mesh = graphics::Mesh::new_rectangle(context, graphics::DrawMode::fill(), rect, color)?;
-				graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
+		graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
+		if draw_mode == 3 && self.neighbors > 0 {
+			let text = graphics::Text::new(self.neighbors.to_string());
+			graphics::draw(context, &text, graphics::DrawParam::default().dest(rect.point()))?;
+		}
 		Ok(())
 	}
 }
@@ -170,7 +174,7 @@ impl Controller {
 			self.randomize_cells();
 		}
 		if self.space_toggle.down(keyboard::is_key_pressed(context, KeyCode::Space)) {
-			self.draw_mode = (self.draw_mode + 1) % 3;
+			self.draw_mode = (self.draw_mode + 1) % 4;
 		}
 		if self.up_toggle.down(keyboard::is_key_pressed(context, KeyCode::Up)) {
 			self.fps += 1;
@@ -193,6 +197,7 @@ impl Controller {
 				self.cells[x][y] = Cell::new();
 			}
 		}
+		self.update_cells();
 	}
 }
 impl event::EventHandler for Controller {
