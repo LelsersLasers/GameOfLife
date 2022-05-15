@@ -21,7 +21,6 @@ struct Cell {
 	alive: bool,
 	neighbors: u8,
 }
-
 impl Cell {
 	pub fn new() -> Self {
 		Self {
@@ -43,12 +42,37 @@ impl Cell {
 }
 
 
+struct ToggleKey {
+	was_down: bool,
+}
+impl ToggleKey {
+	pub fn new() -> Self {
+		Self {
+			was_down: false,
+		}
+	}
+	fn down(& mut self, state: bool) -> bool {
+		if !self.was_down && state {
+			self.was_down = true;
+			return true
+		}
+		else if !state {
+			self.was_down = false;
+		}
+		false
+	}
+}
+
+
 struct Controller {
 	cells: [[Cell; HEIGHT as usize]; WIDTH as usize],
 	frame: u128,
 	paused: bool,
+	mouse_toggle: ToggleKey,
+	space_toggle: ToggleKey,
+	up_toggle: ToggleKey,
+	down_toggle: ToggleKey,
 }
-
 impl Controller {
 	pub fn new() -> Self {
 		let mut temp_cells = [[Cell::new(); HEIGHT as usize]; WIDTH as usize];
@@ -61,6 +85,10 @@ impl Controller {
 			cells: temp_cells,
 			frame: 0,
 			paused: false,
+			mouse_toggle: ToggleKey::new(),
+			space_toggle: ToggleKey::new(),
+			up_toggle: ToggleKey::new(),
+			down_toggle: ToggleKey::new(),
 		}
 	}
 	fn update_cells(&mut self) {
@@ -98,6 +126,9 @@ impl Controller {
 		if keyboard::is_key_pressed(context, KeyCode::R) {
 			self.randomize_cells();
 		}
+		if self.space_toggle.down(keyboard::is_key_pressed(context, KeyCode::Space)) {
+			self.paused = !self.paused;
+		}
 	}
 	fn randomize_cells(&mut self) {
 		for x in 0..WIDTH as usize {
@@ -107,7 +138,6 @@ impl Controller {
 		}
 	}
 }
-
 impl event::EventHandler for Controller {
 	fn update(&mut self, context: &mut Context) -> GameResult {
 		self.frame += Duration::as_nanos(&ggez::timer::delta(context));
@@ -129,6 +159,7 @@ impl event::EventHandler for Controller {
 		Ok(())
 	}
 }
+
 
 fn main() -> GameResult {
 	let cb = ggez::ContextBuilder::new("game_of_life", "Lelsers Lasers")
