@@ -6,6 +6,7 @@ use ggez::{Context, GameResult};
 use ggez::graphics;
 use ggez::event;
 use ggez::input::keyboard::{self, KeyCode};
+use ggez::input::mouse::{self, MouseButton};
 
 
 const WIDTH: f32 = 45.0;
@@ -127,6 +128,9 @@ impl Controller {
 			self.randomize_cells();
 		}
 		if self.space_toggle.down(keyboard::is_key_pressed(context, KeyCode::Space)) {
+			self.paused = !self.paused;
+		}
+		if self.mouse_toggle.down(mouse::button_pressed(context, MouseButton::Left)) {
 			self.paused = !self.paused;
 		}
 	}
