@@ -14,7 +14,7 @@ const HEIGHT: f32 = 28.0;
 const SIZE: f32 = 16.0;
 const SPACER: f32 = 4.0;
 const ALIVE_CHANCE_ON_SPAWN: f32 = 0.2;
-const FPS: f32 = 8.0;
+const INITIAL_FPS: u32 = 8;
 
 
 #[derive(Copy, Clone)]
@@ -68,6 +68,7 @@ impl ToggleKey {
 struct Controller {
 	cells: [[Cell; HEIGHT as usize]; WIDTH as usize],
 	frame: u128,
+	fps: u32,
 	paused: bool,
 	mouse_toggle: ToggleKey,
 	space_toggle: ToggleKey,
@@ -85,6 +86,7 @@ impl Controller {
 		Self {
 			cells: temp_cells,
 			frame: 0,
+			fps: INITIAL_FPS,
 			paused: false,
 			mouse_toggle: ToggleKey::new(),
 			space_toggle: ToggleKey::new(),
@@ -130,6 +132,17 @@ impl Controller {
 		if self.space_toggle.down(keyboard::is_key_pressed(context, KeyCode::Space)) {
 			self.paused = !self.paused;
 		}
+		if self.up_toggle.down(keyboard::is_key_pressed(context, KeyCode::Up)) {
+			self.fps += 1;
+		}
+		if self.down_toggle.down(keyboard::is_key_pressed(context, KeyCode::Down)) {
+			if self.fps > 1 {
+				self.fps -= 1;
+			}
+		}
+		if self.space_toggle.down(keyboard::is_key_pressed(context, KeyCode::Space)) {
+			self.paused = !self.paused;
+		}
 		if self.mouse_toggle.down(mouse::button_pressed(context, MouseButton::Left)) {
 			self.paused = !self.paused;
 		}
@@ -147,10 +160,10 @@ impl event::EventHandler for Controller {
 		self.frame += Duration::as_nanos(&ggez::timer::delta(context));
 		self.handle_input(context);
 
-		if !self.paused && self.frame >= 1_000_000_000/FPS as u128 {
+		if !self.paused && self.frame >= 1_000_000_000/self.fps as u128 {
 			self.update_cells();
-			while self.frame >= 1_000_000_000/FPS as u128 {
-				self.frame -= 1_000_000_000/FPS as u128;
+			while self.frame >= 1_000_000_000/self.fps as u128 {
+				self.frame -= 1_000_000_000/self.fps as u128;
 			}
 		}
 		
