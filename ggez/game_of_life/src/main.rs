@@ -5,6 +5,7 @@ use ggez;
 use ggez::{Context, GameResult};
 use ggez::graphics;
 use ggez::event;
+use ggez::input::keyboard::{self, KeyCode};
 
 
 const WIDTH: f32 = 45.0;
@@ -45,6 +46,7 @@ impl Cell {
 struct Controller {
 	cells: [[Cell; HEIGHT as usize]; WIDTH as usize],
 	frame: u128,
+	paused: bool,
 }
 
 impl Controller {
@@ -58,6 +60,7 @@ impl Controller {
 		Self {
 			cells: temp_cells,
 			frame: 0,
+			paused: false,
 		}
 	}
 	fn update_cells(&mut self) {
@@ -91,12 +94,26 @@ impl Controller {
 		}
 		Ok(())
 	}
+	fn handle_input(&mut self, context: &Context) {
+		if keyboard::is_key_pressed(context, KeyCode::R) {
+			self.randomize_cells();
+		}
+	}
+	fn randomize_cells(&mut self) {
+		for x in 0..WIDTH as usize {
+			for y in 0..HEIGHT as usize {
+				self.cells[x][y] = Cell::new();
+			}
+		}
+	}
 }
 
 impl event::EventHandler for Controller {
 	fn update(&mut self, context: &mut Context) -> GameResult {
 		self.frame += Duration::as_nanos(&ggez::timer::delta(context));
-		if self.frame >= 1_000_000_000/FPS as u128 {
+		self.handle_input(context);
+
+		if !self.paused && self.frame >= 1_000_000_000/FPS as u128 {
 			self.update_cells();
 			while self.frame >= 1_000_000_000/FPS as u128 {
 				self.frame -= 1_000_000_000/FPS as u128;
