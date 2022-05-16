@@ -45,4 +45,5 @@ To Runn:
 - The Javascript should be run with 'node gameOfLife.js'
 - The Python can just be run with 'python gameOfLife.py'
 - The Rust EXE (in Rust\game_of_life\target\release) should just work
-    - If not, it can be run/build with 'cargo run'/'cargo build'
+    - If not, it can be run/build with 'cargo run -r'/'cargo build -r'
+        - The '-r' is for '--release' meaning it is better optimized
