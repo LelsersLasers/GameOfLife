@@ -9,12 +9,11 @@ My attempt to write John Conway's Game of Life in various programming languages:
 - Javascript
 - Python
 - Rust
-- The 'libgdx' is the main/primary/best/featured version
-    - Is a graphical app (rather than a terminal one) written in Java using the [libgdx](https://libgdx.com/) framework based on OpenGL (ES)
-    - See the README.md in the 'libgdx' folder for more information
-- The 'ggez' is a graphical app written in Rust using the [ggez](https://ggez.rs/) framework based on LÖVE
-
-
+- The 'libgdx' and 'ggez' are the featured/main/primary/best versions
+    - They are graphical apps (rather than a terminal one)
+    - The 'libgdx' version is written in Java using the [libgdx](https://libgdx.com/) framework based on OpenGL (ES)
+    - The 'ggez' version is written in Rust using the [ggez](https://ggez.rs/) framework based on LÖVE
+    - See the READMEs in their respective folders for more information
 
 Cell Rules:
 
