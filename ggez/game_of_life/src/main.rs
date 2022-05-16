@@ -140,11 +140,15 @@ impl Controller {
 				if color != graphics::Color::BLACK { // no point in drawing if it is the same color as the background
 					let params = graphics::DrawParam::new().dest(pt).color(color);
 					self.batch.add(params);
+					if self.draw_mode == 3 {
+						let text = graphics::Text::new(self.cells[x][y].neighbors.to_string());
+						let pt = mint::Point2 {
+							x: pt.x + SIZE * 1.0/4.0,
+							y: pt.y + SIZE * 1.0/8.0
+						};
+						graphics::queue_text(context, &text, pt, Some(graphics::Color::RED));
+					}
 				}
-				// if self.draw_mode == 3 {
-				// 	let text = graphics::Text::new(self.cells[x][y].neighbors.to_string());
-				// 	graphics::draw(context, &text, graphics::DrawParam::default().dest(pt))?;
-				// }
 			}
 		}
 		Ok(())
@@ -179,13 +183,13 @@ impl event::EventHandler for Controller {
 	}
 	fn draw(&mut self, context: &mut Context) -> GameResult {
 		graphics::clear(context, graphics::Color::BLACK);
-
 		self.batch.clear();
+		
 		self.draw_cells(context)?;
 		graphics::draw(context, &self.batch, graphics::DrawParam::new())?;
+		graphics::draw_queued_text(context, graphics::DrawParam::new(), None, graphics::FilterMode::Linear)?;
 		
 		graphics::present(context)?;
-		
 		Ok(())
 	}
 }
