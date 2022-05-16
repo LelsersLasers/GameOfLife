@@ -41,7 +41,7 @@ impl Cell {
 		else if !self.alive { self.status = 2; } // newly dead
 		else { self.status = 3; }// still alive
     }
-	fn draw(&self, draw_mode: u8) -> graphics::Color {
+	fn get_color(&self, draw_mode: u8) -> graphics::Color {
 		let color: graphics::Color;
 		if draw_mode == 0 { // gold if alive else black
 			if self.alive { color = graphics::Color::new(0.855, 0.65, 0.13, 1.0); } // "GOLDENROD"
@@ -57,16 +57,6 @@ impl Cell {
 				color = graphics::Color::new(brightness, brightness, brightness, 1.0);
 			}
 		}
-
-		// if color != graphics::Color::BLACK { // no point in drawing if it is the same color as the background
-		// 	let rect_mesh = graphics::Mesh::new_rectangle(context, graphics::DrawMode::fill(), rect, color)?;
-		// 	graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
-
-		// 	if draw_mode == 3 && self.neighbors > 0 { // draw neighbors as text
-		// 		let text = graphics::Text::new(self.neighbors.to_string());
-		// 		graphics::draw(context, &text, graphics::DrawParam::default().dest(rect.point()))?;
-		// 	}
-		// }
 		color
 	}
 }
@@ -139,19 +129,25 @@ impl Controller {
 			for y in 0..HEIGHT as usize { self.cells[x][y].sync(); }
 		}
 	}
-	fn draw_cells(&mut self) {
+	fn draw_cells(&mut self, context: &mut Context) -> GameResult {
 		for x in 0..WIDTH as usize {
 			for y in 0..HEIGHT as usize {
-				let color = self.cells[x][y].draw(self.draw_mode);
-				let params = graphics::DrawParam::default();
-				params.dest(mint::Point2 {
+				let color = self.cells[x][y].get_color(self.draw_mode);
+				let pt = mint::Point2 {
 					x: x as f32 * (SIZE + SPACER) + SPACER,
 					y: y as f32 * (SIZE + SPACER) + SPACER
-				});
-				params.color(color);
-				self.batch.add(params);
+				};
+				if color != graphics::Color::BLACK { // no point in drawing if it is the same color as the background
+					let params = graphics::DrawParam::new().dest(pt).color(color);
+					self.batch.add(params);
+				}
+				// if self.draw_mode == 3 {
+				// 	let text = graphics::Text::new(self.cells[x][y].neighbors.to_string());
+				// 	graphics::draw(context, &text, graphics::DrawParam::default().dest(pt))?;
+				// }
 			}
 		}
+		Ok(())
 	}
 	fn handle_input(&mut self, context: &Context) {
 		if keyboard::is_key_pressed(context, KeyCode::R) { self.randomize_cells(); }
@@ -185,8 +181,8 @@ impl event::EventHandler for Controller {
 		graphics::clear(context, graphics::Color::BLACK);
 
 		self.batch.clear();
-		self.draw_cells();
-		graphics::draw(context, &self.batch, graphics::DrawParam::default())?;
+		self.draw_cells(context)?;
+		graphics::draw(context, &self.batch, graphics::DrawParam::new())?;
 		
 		graphics::present(context)?;
 		

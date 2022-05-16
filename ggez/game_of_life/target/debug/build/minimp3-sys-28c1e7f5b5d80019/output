@@ -12,7 +12,7 @@ CFLAGS = None
 CRATE_CC_NO_DEFAULTS = None
 CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2")
 DEBUG = Some("true")
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "minimp3/" "-W4" "-DMINIMP3_IMPLEMENTATION" "-FoC:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\debug\\build\\minimp3-sys-28c1e7f5b5d80019\\out\\minimp3.o" "-c" "minimp3.c"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "minimp3/" "-W4" "-DMINIMP3_IMPLEMENTATION" "-FoC:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\debug\\build\\minimp3-sys-28c1e7f5b5d80019\\out\\minimp3.o" "-c" "minimp3.c"
 minimp3.c
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\minimp3-sys-0.3.2\minimp3\minimp3.h(411): warning C4244: '=': conversion from 'uint32_t' to 'uint8_t', possible loss of data
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\minimp3-sys-0.3.2\minimp3\minimp3.h(581): warning C4244: '=': conversion from 'uint32_t' to 'uint8_t', possible loss of data
@@ -32,7 +32,7 @@ AR_x86_64-pc-windows-msvc = None
 AR_x86_64_pc_windows_msvc = None
 HOST_AR = None
 AR = None
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\lib.exe" "-out:C:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\debug\\build\\minimp3-sys-28c1e7f5b5d80019\\out\\libminimp3.a" "-nologo" "C:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\debug\\build\\minimp3-sys-28c1e7f5b5d80019\\out\\minimp3.o"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\lib.exe" "-out:C:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\debug\\build\\minimp3-sys-28c1e7f5b5d80019\\out\\libminimp3.a" "-nologo" "C:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\debug\\build\\minimp3-sys-28c1e7f5b5d80019\\out\\minimp3.o"
 exit code: 0
 cargo:rustc-link-lib=static=minimp3
-cargo:rustc-link-search=native=C:\Users\milla\Desktop\coding\GameOfLife\ggez\game_of_life\target\debug\build\minimp3-sys-28c1e7f5b5d80019\out
+cargo:rustc-link-search=native=C:\Users\milla\Desktop\Code\GameOfLife\ggez\game_of_life\target\debug\build\minimp3-sys-28c1e7f5b5d80019\out
