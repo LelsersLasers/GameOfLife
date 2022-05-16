@@ -41,7 +41,7 @@ impl Cell {
 		else if !self.alive { self.status = 2; } // newly dead
 		else { self.status = 3; }// still alive
     }
-	fn draw(&self, context: &mut Context, rect: graphics::Rect, draw_mode: u8) -> GameResult {
+	fn draw(&self, draw_mode: u8) -> graphics::Color {
 		let color: graphics::Color;
 		if draw_mode == 0 { // gold if alive else black
 			if self.alive { color = graphics::Color::new(0.855, 0.65, 0.13, 1.0); } // "GOLDENROD"
@@ -58,16 +58,16 @@ impl Cell {
 			}
 		}
 
-		if color != graphics::Color::BLACK { // no pooint in drawing if it is the same color as the background
-			let rect_mesh = graphics::Mesh::new_rectangle(context, graphics::DrawMode::fill(), rect, color)?;
-			graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
+		// if color != graphics::Color::BLACK { // no point in drawing if it is the same color as the background
+		// 	let rect_mesh = graphics::Mesh::new_rectangle(context, graphics::DrawMode::fill(), rect, color)?;
+		// 	graphics::draw(context, &rect_mesh, graphics::DrawParam::default())?;
 
-			if draw_mode == 3 && self.neighbors > 0 { // draw neighbors as text
-				let text = graphics::Text::new(self.neighbors.to_string());
-				graphics::draw(context, &text, graphics::DrawParam::default().dest(rect.point()))?;
-			}
-		}
-		Ok(())
+		// 	if draw_mode == 3 && self.neighbors > 0 { // draw neighbors as text
+		// 		let text = graphics::Text::new(self.neighbors.to_string());
+		// 		graphics::draw(context, &text, graphics::DrawParam::default().dest(rect.point()))?;
+		// 	}
+		// }
+		color
 	}
 }
 
@@ -94,6 +94,7 @@ impl ToggleKey {
 
 struct Controller {
 	cells: [[Cell; HEIGHT as usize]; WIDTH as usize],
+	batch: graphics::spritebatch::SpriteBatch,
 	frame: u128,
 	fps: u32,
 	paused: bool,
@@ -104,13 +105,14 @@ struct Controller {
 	down_toggle: ToggleKey
 }
 impl Controller {
-	pub fn new() -> Self {
+	pub fn new(white_batch: graphics::spritebatch::SpriteBatch) -> Self {
 		let mut temp_cells = [[Cell::new(); HEIGHT as usize]; WIDTH as usize];
 		for x in 0..WIDTH as usize {
 			for y in 0..HEIGHT as usize { temp_cells[x][y] = Cell::new(); }
 		}
 		Self {
 			cells: temp_cells,
+			batch: white_batch,
 			frame: 0,
 			fps: INITIAL_FPS,
 			paused: false,
@@ -137,18 +139,19 @@ impl Controller {
 			for y in 0..HEIGHT as usize { self.cells[x][y].sync(); }
 		}
 	}
-	fn draw_cells(&self, context: &mut Context) -> GameResult {
-		let mut rect = graphics::Rect::new(-1.0, -1.0, SIZE, SIZE);
+	fn draw_cells(&mut self) {
 		for x in 0..WIDTH as usize {
 			for y in 0..HEIGHT as usize {
-				rect.move_to(mint::Point2 {
+				let color = self.cells[x][y].draw(self.draw_mode);
+				let params = graphics::DrawParam::default();
+				params.dest(mint::Point2 {
 					x: x as f32 * (SIZE + SPACER) + SPACER,
 					y: y as f32 * (SIZE + SPACER) + SPACER
 				});
-				self.cells[x][y].draw(context, rect, self.draw_mode)?;
+				params.color(color);
+				self.batch.add(params);
 			}
 		}
-		Ok(())
 	}
 	fn handle_input(&mut self, context: &Context) {
 		if keyboard::is_key_pressed(context, KeyCode::R) { self.randomize_cells(); }
@@ -180,8 +183,13 @@ impl event::EventHandler for Controller {
 	}
 	fn draw(&mut self, context: &mut Context) -> GameResult {
 		graphics::clear(context, graphics::Color::BLACK);
-		self.draw_cells(context)?;
+
+		self.batch.clear();
+		self.draw_cells();
+		graphics::draw(context, &self.batch, graphics::DrawParam::default())?;
+		
 		graphics::present(context)?;
+		
 		Ok(())
 	}
 }
@@ -190,9 +198,10 @@ impl event::EventHandler for Controller {
 fn main() -> GameResult {
 	let cb = ContextBuilder::new("game_of_life", "Lelsers Lasers")
 		.window_mode(conf::WindowMode::default().dimensions(WIDTH * (SIZE + SPACER) + SPACER, HEIGHT * (SIZE + SPACER) + SPACER));
-	let (context, event_loop) = cb.build()?;
+	let (mut context, event_loop) = cb.build()?;
 	graphics::set_window_title(&context, "Game Of Life");
 
-	let controller = Controller::new();
+	let controller = Controller::new(graphics::spritebatch::SpriteBatch::new(graphics::Image::solid(&mut context, SIZE as u16, graphics::Color::WHITE)?));
+
 	event::run(context, event_loop, controller);
 }
