@@ -33,7 +33,7 @@ Basic game info:
 - There is no way to exit the terminal apps without control+c
 
 
-To Runn:
+To Run:
 - DISCLAIMER: All of these were built in Windows 10 and work fine on my computer
     - All frameworks used are crossplatform so you should just need to built for your OS
         - Note: The main issue is problemly the screen "clearing" inbetween frames for the terminal apps
