@@ -151,6 +151,7 @@ impl Controller {
 				}
 			}
 		}
+		println!("FPS: {} | Updates per second: {}", timer::fps(context) as usize, self.fps);
 		Ok(())
 	}
 	fn handle_input(&mut self, context: &Context) {
@@ -197,9 +198,12 @@ impl event::EventHandler for Controller {
 
 fn main() -> GameResult {
 	let cb = ContextBuilder::new("game_of_life", "Lelsers Lasers")
+		.window_setup(conf::WindowSetup::default()
+			.title("Game Of Life")
+			.icon("/icon.PNG")
+		)
 		.window_mode(conf::WindowMode::default().dimensions(WIDTH * (SIZE + SPACER) + SPACER, HEIGHT * (SIZE + SPACER) + SPACER));
 	let (mut context, event_loop) = cb.build()?;
-	graphics::set_window_title(&context, "Game Of Life");
 
 	let controller = Controller::new(graphics::spritebatch::SpriteBatch::new(graphics::Image::solid(&mut context, SIZE as u16, graphics::Color::WHITE)?));
 
