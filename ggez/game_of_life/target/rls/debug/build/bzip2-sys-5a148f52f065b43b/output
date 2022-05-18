@@ -12,37 +12,37 @@ CFLAGS = None
 CRATE_CC_NO_DEFAULTS = None
 CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2")
 DEBUG = Some("true")
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/blocksort.o" "-c" "bzip2-1.0.8/blocksort.c"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/blocksort.o" "-c" "bzip2-1.0.8/blocksort.c"
 blocksort.c
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\bzip2-sys-0.1.11+1.0.8\bzip2-1.0.8\bzlib.h(70): warning C4005: 'BZ_EXPORT': macro redefinition
 bzip2-1.0.8/blocksort.c: note: see previous definition of 'BZ_EXPORT'
 exit code: 0
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/huffman.o" "-c" "bzip2-1.0.8/huffman.c"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/huffman.o" "-c" "bzip2-1.0.8/huffman.c"
 huffman.c
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\bzip2-sys-0.1.11+1.0.8\bzip2-1.0.8\bzlib.h(70): warning C4005: 'BZ_EXPORT': macro redefinition
 bzip2-1.0.8/huffman.c: note: see previous definition of 'BZ_EXPORT'
 exit code: 0
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/crctable.o" "-c" "bzip2-1.0.8/crctable.c"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/crctable.o" "-c" "bzip2-1.0.8/crctable.c"
 crctable.c
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\bzip2-sys-0.1.11+1.0.8\bzip2-1.0.8\bzlib.h(70): warning C4005: 'BZ_EXPORT': macro redefinition
 bzip2-1.0.8/crctable.c: note: see previous definition of 'BZ_EXPORT'
 exit code: 0
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/randtable.o" "-c" "bzip2-1.0.8/randtable.c"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/randtable.o" "-c" "bzip2-1.0.8/randtable.c"
 randtable.c
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\bzip2-sys-0.1.11+1.0.8\bzip2-1.0.8\bzlib.h(70): warning C4005: 'BZ_EXPORT': macro redefinition
 bzip2-1.0.8/randtable.c: note: see previous definition of 'BZ_EXPORT'
 exit code: 0
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/compress.o" "-c" "bzip2-1.0.8/compress.c"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/compress.o" "-c" "bzip2-1.0.8/compress.c"
 compress.c
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\bzip2-sys-0.1.11+1.0.8\bzip2-1.0.8\bzlib.h(70): warning C4005: 'BZ_EXPORT': macro redefinition
 bzip2-1.0.8/compress.c: note: see previous definition of 'BZ_EXPORT'
 exit code: 0
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/decompress.o" "-c" "bzip2-1.0.8/decompress.c"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/decompress.o" "-c" "bzip2-1.0.8/decompress.c"
 decompress.c
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\bzip2-sys-0.1.11+1.0.8\bzip2-1.0.8\bzlib.h(70): warning C4005: 'BZ_EXPORT': macro redefinition
 bzip2-1.0.8/decompress.c: note: see previous definition of 'BZ_EXPORT'
 exit code: 0
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/bzlib.o" "-c" "bzip2-1.0.8/bzlib.c"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-Z7" "-Brepro" "-I" "bzip2-1.0.8" "-D_WIN32" "-DBZ_EXPORT" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-Foc:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/bzlib.o" "-c" "bzip2-1.0.8/bzlib.c"
 bzlib.c
 C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\bzip2-sys-0.1.11+1.0.8\bzip2-1.0.8\bzlib.h(70): warning C4005: 'BZ_EXPORT': macro redefinition
 bzip2-1.0.8/bzlib.c: note: see previous definition of 'BZ_EXPORT'
@@ -51,9 +51,9 @@ AR_x86_64-pc-windows-msvc = None
 AR_x86_64_pc_windows_msvc = None
 HOST_AR = None
 AR = None
-running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\lib.exe" "-out:c:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\libbz2.a" "-nologo" "c:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/blocksort.o" "c:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/huffman.o" "c:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/crctable.o" "c:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/randtable.o" "c:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/compress.o" "c:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/decompress.o" "c:\\Users\\milla\\Desktop\\Code\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/bzlib.o"
+running: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\HostX64\\x64\\lib.exe" "-out:c:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\libbz2.a" "-nologo" "c:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/blocksort.o" "c:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/huffman.o" "c:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/crctable.o" "c:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/randtable.o" "c:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/compress.o" "c:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/decompress.o" "c:\\Users\\milla\\Desktop\\coding\\GameOfLife\\ggez\\game_of_life\\target\\rls\\debug\\build\\bzip2-sys-5a148f52f065b43b\\out\\lib\\bzip2-1.0.8/bzlib.o"
 exit code: 0
 cargo:rustc-link-lib=static=bz2
-cargo:rustc-link-search=native=c:\Users\milla\Desktop\Code\GameOfLife\ggez\game_of_life\target\rls\debug\build\bzip2-sys-5a148f52f065b43b\out\lib
-cargo:root=c:\Users\milla\Desktop\Code\GameOfLife\ggez\game_of_life\target\rls\debug\build\bzip2-sys-5a148f52f065b43b\out
-cargo:include=c:\Users\milla\Desktop\Code\GameOfLife\ggez\game_of_life\target\rls\debug\build\bzip2-sys-5a148f52f065b43b\out\include
+cargo:rustc-link-search=native=c:\Users\milla\Desktop\coding\GameOfLife\ggez\game_of_life\target\rls\debug\build\bzip2-sys-5a148f52f065b43b\out\lib
+cargo:root=c:\Users\milla\Desktop\coding\GameOfLife\ggez\game_of_life\target\rls\debug\build\bzip2-sys-5a148f52f065b43b\out
+cargo:include=c:\Users\milla\Desktop\coding\GameOfLife\ggez\game_of_life\target\rls\debug\build\bzip2-sys-5a148f52f065b43b\out\include

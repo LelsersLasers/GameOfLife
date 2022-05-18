@@ -46,6 +46,6 @@ impl EventHandler for MyGame {
     }
 }
 "####);
-    skeptic::rt::compile_test(r#"C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\ggez-0.7.0"#, r#"c:\Users\milla\Desktop\Code\GameOfLife\ggez\game_of_life\target\rls\debug\build\ggez-d6c3e1384a156581\out"#, r#"x86_64-pc-windows-msvc"#, s);
+    skeptic::rt::compile_test(r#"C:\Users\milla\.cargo\registry\src\github.com-1ecc6299db9ec823\ggez-0.7.0"#, r#"c:\Users\milla\Desktop\coding\GameOfLife\ggez\game_of_life\target\rls\debug\build\ggez-d6c3e1384a156581\out"#, r#"x86_64-pc-windows-msvc"#, s);
 }
 
