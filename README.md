@@ -1,50 +1,98 @@
 # Game of Life (John Conway)
 
-https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+[Conway's Game of Life (Wikipedia)](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
-![Normal View](https://github.com/LelsersLasers/GameOfLife/raw/main/ggez/Showcase/normalView.PNG)
+![Conway's Game of Life grid showing active and inactive cells](https://github.com/LelsersLasers/GameOfLife/raw/main/ggez/Showcase/normalView.PNG)
 
-My attempt to write John Conway's Game of Life in various programming languages:
-- C
-- C++
-- Java
-- Javascript
-- Python
-- Rust
-- The 'libgdx' and 'ggez' are the featured/main/primary/best versions
-    - They are graphical apps (rather than a terminal one)
-    - The 'libgdx' version is written in Java using the [libgdx](https://libgdx.com/) framework based on OpenGL (ES)
-    - The 'ggez' version is written in Rust using the [ggez](https://ggez.rs/) framework based on LÖVE
-    - See the READMEs in their respective folders for more information
+## Overview
 
-Cell Rules:
+This repository contains implementations of John Conway’s *Game of Life* across multiple programming languages and environments.
 
-Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions occur:
-- Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-- Any live cell with two or three live neighbours lives on to the next generation.
-- Any live cell with more than three live neighbours dies, as if by overpopulation.
-- Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+## Implementations
 
-These rules, which compare the behavior of the automaton to real life, can be condensed into the following:
-- Any live cell with two or three live neighbours survives.
-- Any dead cell with three live neighbours becomes a live cell.
-- All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+The following implementations are organized by programming language and include both terminal-based and graphical versions.
 
-Basic game info:
-- Game board is 45x27, the '@'s are alive cells
-- There is no way to exit the terminal apps without control+c
+### Languages
 
+- [C](./C)
+- [C++](./C++)
+- [Java](./Java)
+- [JavaScript](./Javascript)
+- [Python](./Python)
+- [Rust](./Rust)
 
-To Run:
-- DISCLAIMER: All of these were built in Windows 10 and work fine on my computer
-    - All frameworks used are crossplatform so you should just need to built for your OS
-        - Note: The main issue is problemly the screen "clearing" inbetween frames for the terminal apps
-        - Note: In some of the terminal apps (Java, etc) the screen clearing does not work in the Windows Commmand Prompt
-- I THINK the C/C++ should just work (just run the EXE)
-    - Or compile for your computer and run
-- Also I THINK the java should just work ('java GameOfLife')
-- The Javascript should be run with 'node gameOfLife.js'
-- The Python can just be run with 'python gameOfLife.py'
-- The Rust EXE (in Rust\game_of_life\target\release) should just work
-    - If not, it can be run/build with 'cargo run -r'/'cargo build -r'
-        - The '-r' is for '--release' meaning it is better optimized
+### Featured Implementations
+
+The `libgdx` and `ggez` versions are graphical applications rather than terminal-based implementations.
+
+- **libgdx (Java)**  
+  Uses the [libGDX](https://libgdx.com/) framework (OpenGL ES)  
+  → [View implementation](./libgdx)  
+  → See Running section for execution details
+
+- **ggez (Rust)**  
+  Uses the [ggez](https://ggez.rs/) framework (inspired by LÖVE)  
+  → [View implementation](./ggez)  
+  → See Running section for execution details
+
+See the READMEs in their respective folders for more information.
+
+## The Game
+
+### About
+
+*Game of Life* is a cellular automaton where each cell evolves based on its neighbors. Each cell interacts with its eight neighbors, which are horizontally, vertically, or diagonally adjacent. These rules compare the behavior of the automaton to unpredictable, emergent lifelike processes.
+
+### Game Details
+
+- Board size: 45 x 27
+- '@' represents a live cell
+- Terminal versions exit with Ctrl+C
+
+### Basic Rules
+
+At each step:
+- Any live cell with fewer than two live neighbors dies (underpopulation)
+- Any live cell with two or three live neighbors lives on to the next generation
+- Any live cell with more than three live neighbors dies (overpopulation)
+- Any dead cell with exactly three live neighbors becomes a live cell (reproduction)
+
+## Running the Project
+
+> These implementations were developed on Windows 10. Behavior may vary on other operating systems.
+
+### General Notes
+
+- Frameworks used are cross-platform, but you may need to build for your operating system
+- Terminal-based versions may have issues clearing the screen between frames
+- In some cases (e.g., Java), screen clearing may not work in Windows Command Prompt
+
+### Running by Language
+
+- **C / C++**  
+  Run the provided executable, or compile and run it locally
+
+- **Java**  
+  `java GameOfLife`  
+  
+  The `libgdx` version requires building and running the project using the libGDX framework (e.g., via Gradle or an IDE). See the `libgdx` folder README for details.
+
+- **JavaScript**  
+  `node gameOfLife.js`
+
+- **Python**  
+  `python gameOfLife.py`
+
+- **Rust**  
+  Run the executable located in:
+
+  `Rust\game_of_life\target\release`
+
+  Or build/run with:
+
+  `cargo run --release`  
+  `cargo build --release`
+
+  The `ggez` version is a separate Rust project and can be run using Cargo from its directory:  
+
+  `cargo run`
